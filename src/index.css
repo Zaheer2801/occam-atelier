@@ -60,6 +60,30 @@
     --sidebar-accent-foreground: 30 10% 10%;
     --sidebar-border: 36 24% 84%;
     --sidebar-ring: 8 84% 60%;
+
+    /* ───── OCAS Software LLC — Corporate brand (dark, gradient, tech) ───── */
+    --corp-bg: 240 10% 4%;             /* near-black */
+    --corp-surface: 240 8% 8%;         /* card surface */
+    --corp-surface-2: 240 8% 12%;      /* elevated */
+    --corp-border: 240 6% 18%;
+    --corp-text: 0 0% 98%;
+    --corp-text-muted: 240 5% 65%;
+    --corp-text-dim: 240 4% 46%;
+
+    --corp-blue: 199 89% 48%;          /* sky-500 #0ea5e9 */
+    --corp-purple: 258 90% 66%;        /* violet-500 #8b5cf6 */
+    --corp-cyan: 187 85% 53%;          /* cyan-400 */
+    --corp-pink: 330 81% 60%;          /* pink-500 */
+
+    --corp-gradient: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(258 90% 66%) 100%);
+    --corp-gradient-soft: linear-gradient(135deg, hsl(199 89% 48% / 0.18) 0%, hsl(258 90% 66% / 0.18) 100%);
+    --corp-gradient-mesh:
+      radial-gradient(at 18% 12%, hsl(199 89% 48% / 0.32) 0px, transparent 55%),
+      radial-gradient(at 82% 28%, hsl(258 90% 66% / 0.32) 0px, transparent 55%),
+      radial-gradient(at 48% 88%, hsl(187 85% 53% / 0.18) 0px, transparent 60%);
+    --corp-glow-blue: 0 0 80px hsl(199 89% 48% / 0.45);
+    --corp-glow-purple: 0 0 80px hsl(258 90% 66% / 0.45);
+    --corp-shadow-card: 0 24px 60px -24px hsl(240 10% 0% / 0.6);
   }
 
   .dark {
@@ -212,5 +236,129 @@
   @keyframes wobble {
     0%, 100% { transform: rotate(-3deg); }
     50% { transform: rotate(3deg); }
+  }
+
+  /* ───── Corporate (OCAS Software) scope ───── */
+  .corporate {
+    background-color: hsl(var(--corp-bg));
+    color: hsl(var(--corp-text));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .corporate ::selection { background: hsl(var(--corp-purple) / 0.4); color: hsl(var(--corp-text)); }
+
+  .corp-gradient { background: var(--corp-gradient); }
+  .corp-gradient-soft { background: var(--corp-gradient-soft); }
+  .corp-mesh { background: var(--corp-gradient-mesh); }
+  .corp-text-gradient {
+    background: var(--corp-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .corp-glass {
+    background: hsl(var(--corp-surface) / 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--corp-border) / 0.8);
+  }
+  .corp-card {
+    background: hsl(var(--corp-surface));
+    border: 1px solid hsl(var(--corp-border));
+    border-radius: 1.25rem;
+  }
+  .corp-grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--corp-border) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--corp-border) / 0.4) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .corp-noise {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Drifting gradient orbs */
+  .corp-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .corp-orb-blue { background: hsl(var(--corp-blue) / 0.7); }
+  .corp-orb-purple { background: hsl(var(--corp-purple) / 0.7); }
+  .corp-orb-cyan { background: hsl(var(--corp-cyan) / 0.55); }
+
+  /* SVG draw-on for logo */
+  .corp-draw { stroke-dasharray: 320; stroke-dashoffset: 320; animation: corp-draw 1.6s 0.1s ease-out forwards; }
+  @keyframes corp-draw { to { stroke-dashoffset: 0; } }
+
+  /* Slow drift / orbit / pulse */
+  .corp-drift-1 { animation: corp-drift-1 22s ease-in-out infinite; }
+  .corp-drift-2 { animation: corp-drift-2 28s ease-in-out infinite; }
+  .corp-drift-3 { animation: corp-drift-3 34s ease-in-out infinite; }
+  @keyframes corp-drift-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.15); }
+  }
+  @keyframes corp-drift-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-50px, 20px) scale(1.1); }
+  }
+  @keyframes corp-drift-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, 40px) scale(1.2); }
+  }
+  .corp-orbit { animation: corp-orbit 18s linear infinite; transform-origin: center; }
+  @keyframes corp-orbit {
+    from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+  }
+  .corp-orbit-slow { animation: corp-orbit-slow 30s linear infinite; transform-origin: center; }
+  @keyframes corp-orbit-slow {
+    from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
+    to { transform: rotate(-360deg) translateX(180px) rotate(360deg); }
+  }
+  .corp-pulse-soft { animation: corp-pulse-soft 3.5s ease-in-out infinite; }
+  @keyframes corp-pulse-soft {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+  }
+
+  /* Animated gradient sweep on text */
+  .corp-text-sweep {
+    background-image: linear-gradient(110deg, hsl(var(--corp-blue)) 0%, hsl(var(--corp-purple)) 30%, hsl(var(--corp-pink)) 50%, hsl(var(--corp-purple)) 70%, hsl(var(--corp-blue)) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: corp-sweep 8s linear infinite;
+  }
+  @keyframes corp-sweep { to { background-position: 200% center; } }
+
+  /* Reveal */
+  .corp-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .corp-reveal.is-in { opacity: 1; transform: translateY(0); }
+
+  /* Marquee */
+  .corp-marquee { animation: corp-marquee 40s linear infinite; }
+  @keyframes corp-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Scanning line */
+  .corp-scan::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, hsl(var(--corp-blue) / 0.08) 50%, transparent 100%);
+    animation: corp-scan 4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes corp-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
   }
 }
