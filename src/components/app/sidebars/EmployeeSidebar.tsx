@@ -1,27 +1,23 @@
-import { LayoutDashboard, Briefcase, BarChart3, User, Users } from "lucide-react";
+import { LayoutDashboard, Briefcase, BarChart3, Users, User } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, useSidebar,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/marketing/Logo";
-import { useAuth } from "@/hooks/useAuth";
 
 const items = [
-  { t: "Dashboard", url: "/app/dashboard", icon: LayoutDashboard },
-  { t: "Applications", url: "/app/applications", icon: Briefcase },
-  { t: "Analytics", url: "/app/analytics", icon: BarChart3 },
-  { t: "Profile", url: "/app/profile", icon: User },
+  { t: "Dashboard", url: "/app/employee/dashboard", icon: LayoutDashboard },
+  { t: "Applications", url: "/app/employee/applications", icon: Briefcase },
+  { t: "Clients", url: "/app/employee/clients", icon: Users },
+  { t: "Analytics", url: "/app/employee/analytics", icon: BarChart3 },
+  { t: "Profile", url: "/app/employee/profile", icon: User },
 ];
 
-export const AppSidebar = () => {
+export const EmployeeSidebar = () => {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const { roles } = useAuth();
   const location = useLocation();
-  const isManager = roles.includes("manager");
-
-  const all = isManager ? [...items, { t: "Team", url: "/app/team", icon: Users }] : items;
 
   return (
     <Sidebar collapsible="icon">
@@ -37,7 +33,7 @@ export const AppSidebar = () => {
           <SidebarGroupLabel>Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {all.map((it) => (
+              {items.map((it) => (
                 <SidebarMenuItem key={it.t}>
                   <SidebarMenuButton asChild isActive={location.pathname === it.url}>
                     <NavLink to={it.url} end>

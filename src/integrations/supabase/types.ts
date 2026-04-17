@@ -38,6 +38,30 @@ export type Database = {
         }
         Relationships: []
       }
+      employee_client_assignments: {
+        Row: {
+          assigned_at: string
+          client_id: string
+          employee_id: string
+          id: string
+          is_active: boolean
+        }
+        Insert: {
+          assigned_at?: string
+          client_id: string
+          employee_id: string
+          id?: string
+          is_active?: boolean
+        }
+        Update: {
+          assigned_at?: string
+          client_id?: string
+          employee_id?: string
+          id?: string
+          is_active?: boolean
+        }
+        Relationships: []
+      }
       employees: {
         Row: {
           created_at: string
@@ -154,11 +178,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_user_role: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_assigned_to_client: {
+        Args: { _client_id: string; _employee_id: string }
         Returns: boolean
       }
     }

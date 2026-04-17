@@ -16,7 +16,7 @@ const statuses = ["applied", "screening", "interview", "offer", "rejected", "wit
 
 interface App { id: string; position: string; company: string; status: string; applied_date: string; source?: string | null; notes?: string | null; }
 
-const Applications = () => {
+const ClientApplications = () => {
   const { user } = useAuth();
   const [apps, setApps] = useState<App[]>([]);
   const [q, setQ] = useState("");
@@ -181,4 +181,4 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+export default ClientApplications;

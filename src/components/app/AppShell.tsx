@@ -1,28 +1,52 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { Bell, LogOut, Moon, Sun, User as UserIcon } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "./AppSidebar";
+import { ClientSidebar } from "./sidebars/ClientSidebar";
+import { EmployeeSidebar } from "./sidebars/EmployeeSidebar";
+import { ManagerSidebar } from "./sidebars/ManagerSidebar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
+import { ROLE_HOME } from "@/lib/auth";
+
+const ROLE_LABEL: Record<string, string> = {
+  manager: "Manager",
+  employee: "Employee",
+  client: "Client",
+};
 
 export const AppShell = () => {
-  const { user, signOut } = useAuth();
+  const { user, role, signOut } = useAuth();
   const { theme, toggle } = useTheme();
   const nav = useNavigate();
 
   const initials = (user?.user_metadata?.full_name || user?.email || "?")
     .split(" ").map((s: string) => s[0]).slice(0, 2).join("").toUpperCase();
 
+  const Sidebar =
+    role === "manager" ? ManagerSidebar :
+    role === "employee" ? EmployeeSidebar :
+    ClientSidebar;
+
+  const profilePath =
+    role === "manager" ? "/app/manager/settings" :
+    role === "employee" ? "/app/employee/profile" :
+    "/app/client/profile";
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
-        <AppSidebar />
+        <Sidebar />
         <div className="flex-1 flex flex-col">
           <header className="h-16 border-b border-border flex items-center justify-between px-4 bg-background/80 backdrop-blur-xl sticky top-0 z-30">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <SidebarTrigger />
+              {role && (
+                <span className="hidden sm:inline-flex items-center text-xs font-medium px-2 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
+                  {ROLE_LABEL[role]} view
+                </span>
+              )}
             </div>
             <div className="flex items-center gap-1">
               <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
@@ -41,7 +65,12 @@ export const AppShell = () => {
                     <div className="text-xs text-muted-foreground truncate">{user?.email}</div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => nav("/app/profile")}><UserIcon className="h-4 w-4 mr-2" /> Profile</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => nav(role ? ROLE_HOME[role] : "/")}>
+                    <UserIcon className="h-4 w-4 mr-2" /> My dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => nav(profilePath)}>
+                    <UserIcon className="h-4 w-4 mr-2" /> {role === "manager" ? "Settings" : "Profile"}
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={async () => { await signOut(); nav("/"); }}>
                     <LogOut className="h-4 w-4 mr-2" /> Sign out

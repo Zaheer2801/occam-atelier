@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { getUserRole, ROLE_HOME } from "@/lib/auth";
 
 const SignIn = () => {
   const nav = useNavigate();
@@ -15,7 +16,7 @@ const SignIn = () => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: String(fd.get("email") || ""),
       password: String(fd.get("password") || ""),
     });
@@ -25,7 +26,9 @@ const SignIn = () => {
       return;
     }
     toast.success("Welcome back!");
-    nav("/app/dashboard");
+    const userId = data.user?.id;
+    const role = userId ? await getUserRole(userId) : null;
+    nav(role ? ROLE_HOME[role] : "/app/client/dashboard");
   };
 
   return (
