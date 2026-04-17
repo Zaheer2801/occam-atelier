@@ -1,13 +1,12 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-
-type Role = "manager" | "employee" | "client";
+import { getUserRole, Role } from "@/lib/auth";
 
 interface AuthCtx {
   user: User | null;
   session: Session | null;
-  roles: Role[];
+  role: Role | null;
   loading: boolean;
   signOut: () => Promise<void>;
 }
@@ -15,7 +14,7 @@ interface AuthCtx {
 const Ctx = createContext<AuthCtx>({
   user: null,
   session: null,
-  roles: [],
+  role: null,
   loading: true,
   signOut: async () => {},
 });
@@ -23,7 +22,7 @@ const Ctx = createContext<AuthCtx>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [roles, setRoles] = useState<Role[]>([]);
+  const [role, setRole] = useState<Role | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,14 +31,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(s?.user ?? null);
       if (s?.user) {
         setTimeout(async () => {
-          const { data } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", s.user.id);
-          setRoles((data ?? []).map((r: any) => r.role as Role));
+          const r = await getUserRole(s.user.id);
+          setRole(r);
         }, 0);
       } else {
-        setRoles([]);
+        setRole(null);
       }
     });
 
@@ -47,11 +43,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setSession(s);
       setUser(s?.user ?? null);
       if (s?.user) {
-        const { data } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", s.user.id);
-        setRoles((data ?? []).map((r: any) => r.role as Role));
+        const r = await getUserRole(s.user.id);
+        setRole(r);
       }
       setLoading(false);
     });
@@ -64,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Ctx.Provider value={{ user, session, roles, loading, signOut }}>
+    <Ctx.Provider value={{ user, session, role, loading, signOut }}>
       {children}
     </Ctx.Provider>
   );
