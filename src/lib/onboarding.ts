@@ -39,7 +39,6 @@ export function clientStatusRoute(status: ClientStatus | null | undefined): stri
       return "/onboarding/resume-review";
     case "roles_locked":
     case "pending_assignment":
-      return "/app/client/waiting";
     case "assigned":
     case null:
     case undefined:
