@@ -42,6 +42,7 @@ import EmployeeProfile from "./pages/app/employee/Profile";
 import ManagerOverview from "./pages/app/manager/Overview";
 import ManagerTeam from "./pages/app/manager/Team";
 import ManagerClients from "./pages/app/manager/Clients";
+import ManagerPendingClients from "./pages/app/manager/PendingClients";
 import ManagerApplications from "./pages/app/manager/Applications";
 import ManagerAnalytics from "./pages/app/manager/Analytics";
 import ManagerSettings from "./pages/app/manager/Settings";
@@ -117,6 +118,7 @@ const App = () => (
                 <Route path="/app/manager/overview" element={<ManagerOverview />} />
                 <Route path="/app/manager/team" element={<ManagerTeam />} />
                 <Route path="/app/manager/clients" element={<ManagerClients />} />
+                <Route path="/app/manager/clients/pending" element={<ManagerPendingClients />} />
                 <Route path="/app/manager/applications" element={<ManagerApplications />} />
                 <Route path="/app/manager/analytics" element={<ManagerAnalytics />} />
                 <Route path="/app/manager/settings" element={<ManagerSettings />} />
