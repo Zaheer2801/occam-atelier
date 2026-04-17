@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { UserCheck, Briefcase, Loader2 } from "lucide-react";
+import { Briefcase, Loader2 } from "lucide-react";
+import jobseekerAvatar from "@/assets/avatar-jobseeker.png";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -138,9 +139,18 @@ const ManagerPendingClients = () => {
             <Loader2 className="h-6 w-6 mx-auto animate-spin" />
           </div>
         ) : clients.length === 0 ? (
-          <div className="py-16 text-center text-muted-foreground">
-            <UserCheck className="h-10 w-10 mx-auto mb-3 opacity-50" />
-            <p>No clients pending assignment.</p>
+          <div className="py-12 text-center">
+            <img
+              src={jobseekerAvatar}
+              alt=""
+              aria-hidden
+              width={140}
+              height={140}
+              loading="lazy"
+              className="mx-auto w-32 h-32 rounded-full object-cover bg-secondary shadow-elevated wobble"
+            />
+            <h3 className="font-display text-xl text-foreground mt-5">All caught up!</h3>
+            <p className="text-muted-foreground mt-1">No clients pending assignment right now.</p>
           </div>
         ) : (
           <Table>
