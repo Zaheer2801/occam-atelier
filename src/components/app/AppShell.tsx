@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Bell, LogOut, Moon, Sun, User as UserIcon } from "lucide-react";
+import { Bell, LogOut, User as UserIcon } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ClientSidebar } from "./sidebars/ClientSidebar";
 import { EmployeeSidebar } from "./sidebars/EmployeeSidebar";
@@ -7,7 +7,7 @@ import { ManagerSidebar } from "./sidebars/ManagerSidebar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
-import { useTheme } from "@/hooks/useTheme";
+import { useForceLightTheme } from "@/hooks/useTheme";
 import { ROLE_HOME } from "@/lib/auth";
 
 const ROLE_LABEL: Record<string, string> = {
@@ -17,8 +17,8 @@ const ROLE_LABEL: Record<string, string> = {
 };
 
 export const AppShell = () => {
+  useForceLightTheme();
   const { user, role, signOut } = useAuth();
-  const { theme, toggle } = useTheme();
   const nav = useNavigate();
 
   const initials = (user?.user_metadata?.full_name || user?.email || "?")
@@ -43,20 +43,17 @@ export const AppShell = () => {
             <div className="flex items-center gap-3">
               <SidebarTrigger />
               {role && (
-                <span className="hidden sm:inline-flex items-center text-xs font-medium px-2 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
+                <span className="hidden sm:inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-foreground/10">
                   {ROLE_LABEL[role]} view
                 </span>
               )}
             </div>
             <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
-                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-              <Button variant="ghost" size="icon"><Bell className="h-4 w-4" /></Button>
+              <Button variant="ghost" size="icon" className="rounded-full"><Bell className="h-4 w-4" /></Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-9 px-2 gap-2">
-                    <div className="h-7 w-7 rounded-full gradient-primary flex items-center justify-center text-xs font-semibold text-primary-foreground">{initials}</div>
+                  <Button variant="ghost" className="h-9 px-2 gap-2 rounded-full">
+                    <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-xs font-bold text-primary-foreground shadow-glow">{initials}</div>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">

@@ -25,14 +25,15 @@ export const StatCard = ({ label, value, suffix = "", icon: Icon, trend }: Props
   }, [value]);
 
   return (
-    <div className="glass rounded-2xl p-6 hover-lift relative overflow-hidden">
-      <div className="absolute top-4 right-4 h-9 w-9 rounded-lg gradient-primary flex items-center justify-center shadow-glow">
-        <Icon className="h-4 w-4 text-primary-foreground" />
+    <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover-lift">
+      <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-secondary/40" />
+      <div className="absolute top-4 right-4 h-10 w-10 rounded-2xl bg-primary flex items-center justify-center shadow-glow">
+        <Icon className="h-5 w-5 text-primary-foreground" />
       </div>
-      <div className="text-sm text-muted-foreground">{label}</div>
-      <div className="font-display font-bold text-3xl mt-2">{v.toLocaleString()}{suffix}</div>
+      <div className="text-sm text-muted-foreground relative">{label}</div>
+      <div className="font-display text-4xl mt-2 text-foreground relative">{v.toLocaleString()}{suffix}</div>
       {typeof trend === "number" && (
-        <div className={`mt-2 flex items-center gap-1 text-xs ${trend >= 0 ? "text-success" : "text-destructive"}`}>
+        <div className={`mt-3 flex items-center gap-1 text-xs font-medium ${trend >= 0 ? "text-success" : "text-destructive"}`}>
           {trend >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
           {Math.abs(trend)}% from last month
         </div>

@@ -31,9 +31,13 @@ const alerts: AlertItem[] = [
 const ManagerOverview = () => {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      <div>
-        <h1 className="font-display text-3xl font-bold">Operations overview</h1>
-        <p className="text-muted-foreground mt-1">Health of the OCAS Atelier platform at a glance.</p>
+      <div className="relative overflow-hidden rounded-3xl bg-secondary p-7 shadow-yellow">
+        <div className="absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-primary/20" />
+        <div className="absolute top-6 right-8 grid grid-cols-2 gap-1.5">
+          {[0,1,2,3].map((i) => <span key={i} className="block h-2 w-2 rounded-[2px] bg-primary" />)}
+        </div>
+        <h1 className="font-display text-4xl text-foreground relative">Operations overview</h1>
+        <p className="text-foreground/75 mt-1 relative">Health of your placement platform at a glance.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -41,13 +45,13 @@ const ManagerOverview = () => {
       </div>
 
       <div className="grid gap-5 lg:grid-cols-3">
-        <div className="glass rounded-2xl p-6 lg:col-span-2">
-          <h2 className="font-display font-semibold text-lg mb-4">Recent activity</h2>
+        <div className="rounded-3xl bg-card border border-border p-6 lg:col-span-2">
+          <h2 className="font-display text-xl mb-4 text-foreground">Recent activity</h2>
           <ul className="divide-y divide-border/40">
             {activity.map((a) => (
               <li key={a.id} className="py-3 flex items-center justify-between text-sm">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="h-8 w-8 rounded-full gradient-primary shrink-0 flex items-center justify-center text-xs font-semibold text-primary-foreground">
+                  <div className="h-9 w-9 rounded-2xl bg-primary shrink-0 flex items-center justify-center text-xs font-bold text-primary-foreground">
                     {a.who.split(" ").map((s) => s[0]).slice(0, 2).join("")}
                   </div>
                   <div className="min-w-0">
@@ -62,23 +66,23 @@ const ManagerOverview = () => {
         </div>
 
         <div className="space-y-5">
-          <div className="glass rounded-2xl p-6">
-            <h3 className="font-display font-semibold mb-4">Quick actions</h3>
+          <div className="rounded-3xl bg-card border border-border p-6">
+            <h3 className="font-display text-lg mb-4 text-foreground">Quick actions</h3>
             <div className="flex flex-col gap-2">
-              <Button variant="outline" className="justify-start" asChild>
+              <Button variant="outline" className="justify-start rounded-full" asChild>
                 <Link to="/app/manager/team"><UserPlus className="h-4 w-4" /> Add employee</Link>
               </Button>
-              <Button variant="outline" className="justify-start" asChild>
+              <Button variant="outline" className="justify-start rounded-full" asChild>
                 <Link to="/app/manager/clients"><Key className="h-4 w-4" /> Generate access codes</Link>
               </Button>
-              <Button variant="outline" className="justify-start" asChild>
+              <Button variant="outline" className="justify-start rounded-full" asChild>
                 <Link to="/app/manager/analytics"><FileBarChart className="h-4 w-4" /> Export report</Link>
               </Button>
             </div>
           </div>
 
-          <div className="glass rounded-2xl p-6">
-            <h3 className="font-display font-semibold mb-4">Alerts</h3>
+          <div className="rounded-3xl bg-card border border-border p-6">
+            <h3 className="font-display text-lg mb-4 text-foreground">Alerts</h3>
             <ul className="space-y-3">
               {alerts.map((a) => (
                 <li key={a.id} className="flex items-start gap-2 text-sm">
