@@ -8,7 +8,7 @@ export const CorpFooter = () => (
         <OcasLogo variant="connected" mode="color" size={36} />
         <p className="text-sm text-corp-muted max-w-sm">
           OCAS Software LLC — IT staffing, career coaching, resume marketing,
-          and on-the-job support. Powered by our <span className="text-corp-text">Atelier Portal</span>.
+          and on-the-job support for modern career professionals.
         </p>
         <p className="text-xs text-corp-dim font-mono">© {new Date().getFullYear()} OCAS Software LLC</p>
       </div>
@@ -18,7 +18,7 @@ export const CorpFooter = () => (
           <li><a href="/#products" className="hover:text-corp-text">IT Staffing</a></li>
           <li><a href="/#products" className="hover:text-corp-text">Career Coaching</a></li>
           <li><a href="/#products" className="hover:text-corp-text">Resume Marketing</a></li>
-          <li><Link to="/right-job" className="hover:text-corp-text">Atelier Portal</Link></li>
+          <li><Link to="/right-job" className="hover:text-corp-text">On-the-Job Support</Link></li>
         </ul>
       </div>
       <div>
