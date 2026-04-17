@@ -124,16 +124,15 @@ const ManagerPendingClients = () => {
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-display text-3xl font-bold">Pending Assignments</h1>
-          <p className="text-muted-foreground mt-1">
-            {clients.length} client{clients.length === 1 ? "" : "s"} awaiting an employee
-          </p>
-        </div>
+      <div className="relative overflow-hidden rounded-3xl bg-secondary p-7 shadow-yellow">
+        <div className="absolute -bottom-8 -right-8 h-28 w-28 rounded-full bg-primary/20" />
+        <h1 className="font-display text-4xl text-foreground relative">Pending Assignments</h1>
+        <p className="text-foreground/75 mt-1 relative">
+          {clients.length} client{clients.length === 1 ? "" : "s"} awaiting an employee
+        </p>
       </div>
 
-      <div className="glass rounded-2xl p-6">
+      <div className="rounded-3xl bg-card border border-border p-6">
         {loading ? (
           <div className="py-16 text-center text-muted-foreground">
             <Loader2 className="h-6 w-6 mx-auto animate-spin" />
@@ -185,7 +184,7 @@ const ManagerPendingClients = () => {
                     <Button
                       size="sm"
                       onClick={() => openAssign(c)}
-                      className="gradient-primary text-primary-foreground border-0"
+                      className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow"
                     >
                       <Briefcase className="h-4 w-4" /> Assign
                     </Button>
@@ -235,7 +234,7 @@ const ManagerPendingClients = () => {
             <Button
               onClick={handleAssign}
               disabled={!employeeId || assigning}
-              className="gradient-primary text-primary-foreground border-0"
+              className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow"
             >
               {assigning && <Loader2 className="h-4 w-4 animate-spin" />}
               Confirm assignment

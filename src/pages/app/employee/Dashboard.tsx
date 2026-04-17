@@ -80,11 +80,12 @@ const EmployeeDashboard = () => {
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
-      <div>
-        <h1 className="font-display text-3xl md:text-4xl font-bold">
+      <div className="relative overflow-hidden rounded-3xl bg-secondary p-7 shadow-yellow">
+        <div className="absolute -top-6 -right-6 h-28 w-28 rounded-full bg-primary/20" />
+        <h1 className="font-display text-4xl text-foreground relative">
           Hi {name}, you're managing {clients.length} client{clients.length === 1 ? "" : "s"}.
         </h1>
-        <p className="text-muted-foreground mt-1">
+        <p className="text-foreground/75 mt-1 relative">
           {totalApps} application{totalApps === 1 ? "" : "s"} in flight across your roster.
         </p>
       </div>
@@ -94,7 +95,7 @@ const EmployeeDashboard = () => {
           <Link
             key={c.id}
             to={`/app/employee/clients/${c.id}`}
-            className="group rounded-2xl bg-card border border-border p-6 hover-lift block"
+            className="group rounded-3xl bg-card border border-border p-6 hover-lift block relative overflow-hidden"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
@@ -128,7 +129,7 @@ const EmployeeDashboard = () => {
       </div>
 
       <div className="flex justify-center">
-        <Button variant="outline" asChild>
+        <Button variant="outline" className="rounded-full" asChild>
           <Link to="/app/employee/applications">View all applications</Link>
         </Button>
       </div>
