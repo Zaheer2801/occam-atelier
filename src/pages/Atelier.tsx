@@ -65,14 +65,14 @@ const Atelier = () => {
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Link
-                  to="/auth/sign-in"
+                  to="/auth/signin"
                   className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient shadow-[0_18px_50px_-12px_hsl(var(--corp-purple)/0.6)] hover:-translate-y-0.5 transition-all"
                 >
                   Open Atelier
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
                 <Link
-                  to="/auth/sign-up"
+                  to="/auth/signup"
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-corp-text border border-corp-border hover:border-corp-text/40 hover:bg-corp-surface/40 transition-colors"
                 >
                   Create an account
@@ -183,7 +183,7 @@ const Atelier = () => {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                to="/auth/sign-in"
+                to="/auth/signin"
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient shadow-[0_18px_50px_-12px_hsl(var(--corp-purple)/0.6)] hover:-translate-y-0.5 transition-all"
               >
                 Launch Atelier

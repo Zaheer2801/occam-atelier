@@ -20,7 +20,7 @@ export const CorpCTA = () => (
         </p>
         <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to="/auth/sign-in"
+            to="/auth/signin"
             className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient hover:-translate-y-0.5 transition-transform"
           >
             Launch Atelier

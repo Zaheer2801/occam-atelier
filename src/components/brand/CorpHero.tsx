@@ -48,7 +48,7 @@ export const CorpHero = () => {
         {/* CTAs */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to="/auth/sign-in"
+            to="/auth/signin"
             className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient shadow-[0_18px_50px_-12px_hsl(var(--corp-purple)/0.6)] hover:shadow-[0_22px_60px_-12px_hsl(var(--corp-purple)/0.8)] transition-all hover:-translate-y-0.5"
           >
             Launch OCAS Atelier
