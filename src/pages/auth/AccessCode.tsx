@@ -68,6 +68,7 @@ const AccessCode = () => {
         <div className="text-center text-[11px] text-muted-foreground space-y-1">
           <p>Dev test codes:</p>
           <p>Client: <span className="font-mono text-foreground">OCAS-CAN-123</span></p>
+          <p>Employee: <span className="font-mono text-foreground">OCAS-EMP-001</span></p>
           <p>Manager: <span className="font-mono text-foreground">OCAS-MGR-001</span></p>
         </div>
       </form>
