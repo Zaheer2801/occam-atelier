@@ -20,11 +20,18 @@ import AccessCode from "./pages/auth/AccessCode";
 import { ProtectedRoute } from "./components/app/ProtectedRoute";
 import { RoleRedirect } from "./components/app/RoleRedirect";
 import { AppShell } from "./components/app/AppShell";
+import { ClientStatusGate } from "./components/app/ClientStatusGate";
 
 import ClientDashboard from "./pages/app/client/Dashboard";
 import ClientApplications from "./pages/app/client/Applications";
 import ClientAnalytics from "./pages/app/client/Analytics";
 import ClientProfile from "./pages/app/client/Profile";
+import ClientWaiting from "./pages/app/client/Waiting";
+
+import PersonalInfo from "./pages/onboarding/PersonalInfo";
+import ResumeUpload from "./pages/onboarding/ResumeUpload";
+import ResumeReview from "./pages/onboarding/ResumeReview";
+import RoleSelection from "./pages/onboarding/RoleSelection";
 
 import EmployeeDashboard from "./pages/app/employee/Dashboard";
 import EmployeeApplications from "./pages/app/employee/Applications";
@@ -70,13 +77,26 @@ const App = () => (
               <Route path="/app/team" element={<RoleRedirect />} />
             </Route>
 
-            {/* Client */}
+            {/* Client onboarding (status-gated, no AppShell) */}
             <Route element={<ProtectedRoute allowedRoles={["client"]} />}>
-              <Route element={<AppShell />}>
-                <Route path="/app/client/dashboard" element={<ClientDashboard />} />
-                <Route path="/app/client/applications" element={<ClientApplications />} />
-                <Route path="/app/client/analytics" element={<ClientAnalytics />} />
-                <Route path="/app/client/profile" element={<ClientProfile />} />
+              <Route element={<ClientStatusGate />}>
+                <Route path="/onboarding/personal-info" element={<PersonalInfo />} />
+                <Route path="/onboarding/resume-upload" element={<ResumeUpload />} />
+                <Route path="/onboarding/resume-review" element={<ResumeReview />} />
+                <Route path="/onboarding/role-selection" element={<RoleSelection />} />
+                <Route path="/app/client/waiting" element={<ClientWaiting />} />
+              </Route>
+            </Route>
+
+            {/* Client active dashboard (only when status='assigned') */}
+            <Route element={<ProtectedRoute allowedRoles={["client"]} />}>
+              <Route element={<ClientStatusGate />}>
+                <Route element={<AppShell />}>
+                  <Route path="/app/client/dashboard" element={<ClientDashboard />} />
+                  <Route path="/app/client/applications" element={<ClientApplications />} />
+                  <Route path="/app/client/analytics" element={<ClientAnalytics />} />
+                  <Route path="/app/client/profile" element={<ClientProfile />} />
+                </Route>
               </Route>
             </Route>
 
