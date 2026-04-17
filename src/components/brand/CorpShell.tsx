@@ -5,14 +5,14 @@ import { CorpBackdrop } from "@/components/brand/CorpBackdrop";
 
 interface Props {
   children: ReactNode;
-  variant?: "hero" | "soft";
+  variant?: "hero" | "section";
 }
 
 /**
  * Wraps a route in the corporate (.corporate scope) dark theme so the brand
  * tokens defined in index.css apply, and ensures the page background is dark.
  */
-export const CorpShell = ({ children, variant = "soft" }: Props) => {
+export const CorpShell = ({ children, variant = "section" }: Props) => {
   useEffect(() => {
     document.documentElement.classList.add("corporate");
     return () => document.documentElement.classList.remove("corporate");
