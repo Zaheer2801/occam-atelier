@@ -37,12 +37,23 @@ const ManagerPendingClients = () => {
 
   const load = async () => {
     setLoading(true);
+
+    // Only profiles whose role is 'client' should appear here.
+    const { data: clientRoleRows } = await supabase
+      .from("user_roles")
+      .select("user_id")
+      .eq("role", "client");
+    const clientUserIds = (clientRoleRows ?? []).map((r) => r.user_id);
+
     const [{ data: clientRows }, { data: empRows }] = await Promise.all([
-      supabase
-        .from("profiles")
-        .select("id, full_name, location, target_roles, parsed_resume, created_at")
-        .eq("status", "pending_assignment")
-        .order("created_at", { ascending: false }),
+      clientUserIds.length
+        ? supabase
+            .from("profiles")
+            .select("id, full_name, location, target_roles, parsed_resume, created_at")
+            .eq("status", "pending_assignment")
+            .in("id", clientUserIds)
+            .order("created_at", { ascending: false })
+        : Promise.resolve({ data: [] as PendingClient[] }),
       supabase.from("employees").select("user_id"),
     ]);
 
