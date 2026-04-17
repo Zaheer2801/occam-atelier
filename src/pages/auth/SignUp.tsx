@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthLayout } from "@/components/auth/AuthLayout";
@@ -20,8 +20,6 @@ const schema = z.object({
 
 const SignUp = () => {
   const nav = useNavigate();
-  const [params] = useSearchParams();
-  const managerInvite = params.get("invite") === "manager";
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,10 +32,6 @@ const SignUp = () => {
       role: String(fd.get("role") || "client") as "client" | "employee" | "manager",
       terms: fd.get("terms") === "on",
     };
-    if (data.role === "manager" && !managerInvite) {
-      toast.error("Manager signup requires an invite link");
-      return;
-    }
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
       toast.error(parsed.error.errors[0].message);
@@ -57,13 +51,12 @@ const SignUp = () => {
       toast.error(error.message);
       return;
     }
-    toast.success("Account created! Welcome to OCAS Atelier.");
-    if (parsed.data.role === "manager") nav("/app/manager/overview");
-    else nav("/auth/access-code");
+    toast.success("Account created! Enter your access code to continue.");
+    nav("/auth/access-code");
   };
 
   return (
-    <AuthLayout title="Create your account" subtitle={managerInvite ? "Manager invite — full admin access" : "Start automating your job search in minutes"}>
+    <AuthLayout title="Create your account" subtitle="Start automating your job search in minutes">
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
           <Label htmlFor="fullName">Full name</Label>
@@ -79,19 +72,20 @@ const SignUp = () => {
         </div>
         <div>
           <Label className="mb-2 block">I am a…</Label>
-          <RadioGroup name="role" defaultValue={managerInvite ? "manager" : "client"} className={`grid gap-3 ${managerInvite ? "grid-cols-3" : "grid-cols-2"}`}>
+          <RadioGroup name="role" defaultValue="client" className="grid gap-3 grid-cols-3">
             <label className="flex items-center gap-2 border border-border rounded-lg p-3 cursor-pointer hover:border-primary">
               <RadioGroupItem value="client" /> <span className="text-sm">Client</span>
             </label>
             <label className="flex items-center gap-2 border border-border rounded-lg p-3 cursor-pointer hover:border-primary">
               <RadioGroupItem value="employee" /> <span className="text-sm">Employee</span>
             </label>
-            {managerInvite && (
-              <label className="flex items-center gap-2 border border-primary/50 rounded-lg p-3 cursor-pointer hover:border-primary bg-primary/5">
-                <RadioGroupItem value="manager" /> <span className="text-sm">Manager</span>
-              </label>
-            )}
+            <label className="flex items-center gap-2 border border-border rounded-lg p-3 cursor-pointer hover:border-primary">
+              <RadioGroupItem value="manager" /> <span className="text-sm">Manager</span>
+            </label>
           </RadioGroup>
+          <p className="mt-2 text-[11px] text-muted-foreground">
+            All roles require an access code from your account manager after signup.
+          </p>
         </div>
         <label className="flex items-start gap-2 text-sm text-muted-foreground">
           <Checkbox name="terms" className="mt-0.5" />

@@ -41,7 +41,8 @@ const AccessCode = () => {
     if (data !== true) { toast.error("Invalid or expired code"); return; }
 
     toast.success("Code accepted");
-    if (role === "employee") nav(ROLE_HOME.employee, { replace: true });
+    if (role === "manager") nav(ROLE_HOME.manager, { replace: true });
+    else if (role === "employee") nav(ROLE_HOME.employee, { replace: true });
     else nav("/onboarding/personal-info", { replace: true });
   };
 
@@ -64,9 +65,11 @@ const AccessCode = () => {
         <Button type="submit" disabled={loading} className="w-full gradient-primary text-primary-foreground border-0">
           {loading ? "Verifying…" : "Validate & continue"}
         </Button>
-        <p className="text-center text-[11px] text-muted-foreground">
-          Dev test code: <span className="font-mono text-foreground">OCAS-CAN-123</span>
-        </p>
+        <div className="text-center text-[11px] text-muted-foreground space-y-1">
+          <p>Dev test codes:</p>
+          <p>Client: <span className="font-mono text-foreground">OCAS-CAN-123</span></p>
+          <p>Manager: <span className="font-mono text-foreground">OCAS-MGR-001</span></p>
+        </div>
       </form>
     </AuthLayout>
   );
