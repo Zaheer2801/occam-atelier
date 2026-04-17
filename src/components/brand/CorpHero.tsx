@@ -41,8 +41,7 @@ export const CorpHero = () => {
 
         <p className="mt-7 mx-auto max-w-2xl text-center text-lg text-corp-muted">
           OCAS Software is a full-service IT careers firm — staffing, coaching,
-          resume marketing, and on-the-job support — backed by our{" "}
-          <span className="text-corp-text font-semibold">Atelier Portal</span>{" "}
+          resume marketing, and on-the-job support — built around a modern
           workspace for clients and teams.
         </p>
 
@@ -52,7 +51,7 @@ export const CorpHero = () => {
             to="/right-job"
             className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient shadow-[0_18px_50px_-12px_hsl(var(--corp-purple)/0.6)] hover:shadow-[0_22px_60px_-12px_hsl(var(--corp-purple)/0.8)] transition-all hover:-translate-y-0.5"
           >
-            Open Atelier Portal
+            Get started
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
           <a
@@ -74,7 +73,7 @@ export const CorpHero = () => {
         <div className="mt-6 overflow-hidden mask-gradient">
           <div className="corp-marquee flex gap-14 whitespace-nowrap text-corp-dim">
             {[...Array(2)].flatMap((_, k) =>
-              ["Northwind", "Stripeline", "Helio Labs", "Vector & Co", "Quantica", "Nimbus AI", "Fieldnote", "Atelier Studio"].map((b) => (
+              ["Northwind", "Stripeline", "Helio Labs", "Vector & Co", "Quantica", "Nimbus AI", "Fieldnote", "Lumen Studio"].map((b) => (
                 <span key={`${k}-${b}`} className="font-display text-2xl tracking-tight opacity-60">
                   {b}
                 </span>

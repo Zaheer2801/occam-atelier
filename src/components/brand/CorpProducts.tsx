@@ -101,7 +101,7 @@ export const CorpProducts = () => {
           ))}
         </div>
 
-        {/* Featured: Atelier Portal */}
+        {/* Featured: client workspace */}
         <div className="mt-16 corp-reveal corp-card relative overflow-hidden p-8 md:p-12">
           <div
             className="absolute -top-32 -right-32 w-[460px] h-[460px] rounded-full opacity-40 blur-3xl"
@@ -111,33 +111,33 @@ export const CorpProducts = () => {
           <div className="relative grid md:grid-cols-2 gap-10 items-center">
             <div>
               <p className="text-[10px] uppercase tracking-[0.22em] font-mono text-corp-cyan">
-                Featured product
+                Inside the workspace
               </p>
               <div className="mt-3 flex items-center gap-3">
                 <div className="h-10 w-10 rounded-xl corp-gradient grid place-items-center text-white">
                   <LayoutDashboard className="h-5 w-5" />
                 </div>
-                <div className="font-display text-2xl text-corp-text">Atelier Portal</div>
+                <div className="font-display text-2xl text-corp-text">Client Workspace</div>
               </div>
               <h3 className="mt-6 font-display text-3xl md:text-4xl font-extrabold tracking-tight text-corp-text">
                 One quiet workspace for every career.
               </h3>
               <p className="mt-4 text-corp-muted">
-                The portal where our clients track applications, our recruiters
-                run pipelines, and managers see the full picture in real time.
+                Where our clients track applications, recruiters run pipelines,
+                and managers see the full picture in real time.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  to="/right-job"
+                  to="/auth/signin"
                   className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white corp-gradient hover:-translate-y-0.5 transition-transform"
                 >
-                  Open Atelier Portal <ArrowUpRight className="h-4 w-4" />
+                  Sign in <ArrowUpRight className="h-4 w-4" />
                 </Link>
                 <Link
                   to="/atelier"
                   className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-corp-text border border-corp-border hover:bg-corp-surface-2 transition-colors"
                 >
-                  Tour the portal
+                  Take a tour
                 </Link>
               </div>
             </div>

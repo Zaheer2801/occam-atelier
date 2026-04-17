@@ -20,7 +20,7 @@ export const CorpCapabilities = () => (
           Engineering, with <span className="corp-text-gradient">human taste.</span>
         </h2>
         <p className="mt-5 text-corp-muted text-lg">
-          The same primitives power Atelier today and the products we ship tomorrow.
+          The same primitives power our workspace today and the products we ship tomorrow.
         </p>
       </div>
 
