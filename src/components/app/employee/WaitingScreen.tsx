@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Coffee, Quote, Lightbulb, RefreshCw, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import decorSpiral from "@/assets/decor-spiral.png";
+import decorStack from "@/assets/decor-stack.png";
 
 const MEMES = [
   { emoji: "📬", title: "Inbox zero?", text: "More like inbox heroic effort. The recruiters who reply within 4 hours are the real MVPs." },
@@ -72,15 +74,20 @@ const WaitingScreen = () => {
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
-      <div className="text-center space-y-3 py-6">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-          <Sparkles className="h-4 w-4" />
+      <div className="relative overflow-hidden rounded-[2rem] bg-secondary px-8 py-14 text-center shadow-yellow">
+        <img src={decorSpiral} alt="" aria-hidden className="absolute -top-6 left-8 w-20 float-slow pointer-events-none select-none" />
+        <img src={decorStack} alt="" aria-hidden className="absolute -bottom-6 right-8 w-20 float-fast pointer-events-none select-none" />
+        <div className="absolute top-6 right-6 grid grid-cols-2 gap-1.5">
+          {[0,1,2,3].map((i) => <span key={i} className="block h-2 w-2 rounded-[2px] bg-primary" />)}
+        </div>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-card text-foreground text-sm font-semibold border border-foreground/10">
+          <Sparkles className="h-4 w-4 text-primary" />
           Hang tight
         </div>
-        <h1 className="font-display text-4xl md:text-5xl font-bold">
+        <h1 className="font-display text-4xl md:text-5xl mt-5 text-foreground leading-[1.05]">
           Your manager is matching you<br />with a client.
         </h1>
-        <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+        <p className="text-foreground/75 text-lg max-w-xl mx-auto mt-4">
           As soon as someone is assigned to you, this page transforms into your daily workspace.
           Until then, here's something to keep you sharp.
         </p>
@@ -98,10 +105,10 @@ const WaitingScreen = () => {
             {MEMES.map((m) => (
               <div
                 key={m.title}
-                className="rounded-2xl bg-card border border-border p-6 hover-lift"
+                className="rounded-3xl bg-card border border-border p-6 hover-lift"
               >
                 <div className="text-4xl mb-3">{m.emoji}</div>
-                <h3 className="font-display font-semibold text-lg mb-1">{m.title}</h3>
+                <h3 className="font-display text-lg mb-1 text-foreground">{m.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{m.text}</p>
               </div>
             ))}
@@ -109,7 +116,7 @@ const WaitingScreen = () => {
         </TabsContent>
 
         <TabsContent value="quotes" className="mt-6">
-          <div className="rounded-2xl bg-card border border-border p-10 text-center space-y-6">
+          <div className="rounded-3xl bg-card border border-border p-10 text-center space-y-6">
             <Quote className="h-10 w-10 mx-auto text-primary" />
             {quote ? (
               <>
@@ -121,7 +128,7 @@ const WaitingScreen = () => {
             ) : (
               <p className="text-muted-foreground">Loading…</p>
             )}
-            <Button onClick={fetchQuote} variant="outline" disabled={loadingQuote}>
+            <Button onClick={fetchQuote} variant="outline" disabled={loadingQuote} className="rounded-full">
               <RefreshCw className={`h-4 w-4 ${loadingQuote ? "animate-spin" : ""}`} />
               New quote
             </Button>
@@ -129,15 +136,16 @@ const WaitingScreen = () => {
         </TabsContent>
 
         <TabsContent value="tips" className="mt-6 space-y-4">
-          <div className="rounded-2xl gradient-primary text-primary-foreground p-8 shadow-glow">
-            <div className="flex items-center gap-2 text-sm font-medium opacity-90 mb-2">
+          <div className="rounded-3xl bg-primary text-primary-foreground p-8 shadow-glow relative overflow-hidden">
+            <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-secondary/40" />
+            <div className="flex items-center gap-2 text-sm font-semibold opacity-95 mb-2 relative">
               <Lightbulb className="h-4 w-4" />
               Tip of the day
             </div>
-            <p className="font-display text-2xl leading-snug">{tipOfTheDay()}</p>
+            <p className="font-display text-2xl leading-snug relative">{tipOfTheDay()}</p>
           </div>
-          <div className="rounded-2xl bg-card border border-border p-6">
-            <h3 className="font-display font-semibold mb-4">More from the playbook</h3>
+          <div className="rounded-3xl bg-card border border-border p-6">
+            <h3 className="font-display text-lg mb-4 text-foreground">More from the playbook</h3>
             <ul className="space-y-3">
               {TIPS.slice(0, 8).map((t) => (
                 <li key={t} className="flex gap-3 text-sm">
