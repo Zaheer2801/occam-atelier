@@ -58,7 +58,8 @@ const SignUp = () => {
       return;
     }
     toast.success("Account created! Welcome to OCAS Atelier.");
-    nav("/auth/signin");
+    if (parsed.data.role === "manager") nav("/app/manager/overview");
+    else nav("/auth/access-code");
   };
 
   return (

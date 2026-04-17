@@ -28,6 +28,14 @@ const SignIn = () => {
     toast.success("Welcome back!");
     const userId = data.user?.id;
     const role = userId ? await getUserRole(userId) : null;
+    if (role === "client" && userId) {
+      const { data: prof } = await supabase.from("profiles").select("status").eq("id", userId).maybeSingle();
+      const status = prof?.status as string | undefined;
+      if (!status || status === "pending_code") { nav("/auth/access-code"); return; }
+      if (status === "onboarding") { nav("/onboarding/personal-info"); return; }
+      if (status === "resume_review") { nav("/onboarding/resume-review"); return; }
+      if (status === "roles_locked" || status === "pending_assignment") { nav("/app/client/waiting"); return; }
+    }
     nav(role ? ROLE_HOME[role] : "/app/client/dashboard");
   };
 
