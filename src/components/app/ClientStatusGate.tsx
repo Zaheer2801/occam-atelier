@@ -21,6 +21,17 @@ export const ClientStatusGate = () => {
     );
   }
 
+  // Allow free navigation within the onboarding flow once status === 'onboarding'
+  const onboardingPaths = [
+    "/onboarding/personal-info",
+    "/onboarding/resume-upload",
+    "/onboarding/resume-review",
+    "/onboarding/role-selection",
+  ];
+  if (status === "onboarding" && onboardingPaths.includes(location.pathname)) {
+    return <Outlet />;
+  }
+
   const target = clientStatusRoute(status);
   if (target && target !== location.pathname) {
     return <Navigate to={target} replace />;
