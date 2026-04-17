@@ -11,6 +11,7 @@ import PricingPage from "./pages/PricingPage";
 import About from "./pages/About";
 import Brand from "./pages/Brand";
 import Atelier from "./pages/Atelier";
+import RightJob from "./pages/RightJob";
 import NotFound from "./pages/NotFound";
 
 import SignIn from "./pages/auth/SignIn";
@@ -65,6 +66,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/brand" element={<Brand />} />
             <Route path="/atelier" element={<Atelier />} />
+            <Route path="/right-job" element={<RightJob />} />
 
             <Route path="/auth/signin" element={<SignIn />} />
             <Route path="/auth/signup" element={<SignUp />} />
