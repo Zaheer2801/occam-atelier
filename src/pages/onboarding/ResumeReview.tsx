@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import type { ParsedResume } from "@/lib/onboarding";
+import type { Json } from "@/integrations/supabase/types";
 
 const empty: ParsedResume = {
   personal: { name: "", email: "", phone: "", summary: "" },
@@ -64,7 +65,7 @@ const ResumeReview = () => {
     if (!user) return;
     setSaving(true);
     const { error } = await supabase.from("profiles").update({
-      parsed_resume: data as unknown as Record<string, unknown>,
+      parsed_resume: data as unknown as Json,
       updated_at: new Date().toISOString(),
     }).eq("id", user.id);
     setSaving(false);
