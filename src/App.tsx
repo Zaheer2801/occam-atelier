@@ -18,12 +18,26 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import AccessCode from "./pages/auth/AccessCode";
 
 import { ProtectedRoute } from "./components/app/ProtectedRoute";
+import { RoleRedirect } from "./components/app/RoleRedirect";
 import { AppShell } from "./components/app/AppShell";
-import Dashboard from "./pages/app/Dashboard";
-import Applications from "./pages/app/Applications";
-import Analytics from "./pages/app/Analytics";
-import Profile from "./pages/app/Profile";
-import Team from "./pages/app/Team";
+
+import ClientDashboard from "./pages/app/client/Dashboard";
+import ClientApplications from "./pages/app/client/Applications";
+import ClientAnalytics from "./pages/app/client/Analytics";
+import ClientProfile from "./pages/app/client/Profile";
+
+import EmployeeDashboard from "./pages/app/employee/Dashboard";
+import EmployeeApplications from "./pages/app/employee/Applications";
+import EmployeeClients from "./pages/app/employee/Clients";
+import EmployeeAnalytics from "./pages/app/employee/Analytics";
+import EmployeeProfile from "./pages/app/employee/Profile";
+
+import ManagerOverview from "./pages/app/manager/Overview";
+import ManagerTeam from "./pages/app/manager/Team";
+import ManagerClients from "./pages/app/manager/Clients";
+import ManagerApplications from "./pages/app/manager/Applications";
+import ManagerAnalytics from "./pages/app/manager/Analytics";
+import ManagerSettings from "./pages/app/manager/Settings";
 
 const queryClient = new QueryClient();
 
@@ -46,13 +60,46 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/auth/access-code" element={<AccessCode />} />
 
+            {/* Catch-all redirect for legacy /app entry */}
             <Route element={<ProtectedRoute />}>
+              <Route path="/app" element={<RoleRedirect />} />
+              <Route path="/app/dashboard" element={<RoleRedirect />} />
+              <Route path="/app/applications" element={<RoleRedirect />} />
+              <Route path="/app/analytics" element={<RoleRedirect />} />
+              <Route path="/app/profile" element={<RoleRedirect />} />
+              <Route path="/app/team" element={<RoleRedirect />} />
+            </Route>
+
+            {/* Client */}
+            <Route element={<ProtectedRoute allowedRoles={["client"]} />}>
               <Route element={<AppShell />}>
-                <Route path="/app/dashboard" element={<Dashboard />} />
-                <Route path="/app/applications" element={<Applications />} />
-                <Route path="/app/analytics" element={<Analytics />} />
-                <Route path="/app/profile" element={<Profile />} />
-                <Route path="/app/team" element={<Team />} />
+                <Route path="/app/client/dashboard" element={<ClientDashboard />} />
+                <Route path="/app/client/applications" element={<ClientApplications />} />
+                <Route path="/app/client/analytics" element={<ClientAnalytics />} />
+                <Route path="/app/client/profile" element={<ClientProfile />} />
+              </Route>
+            </Route>
+
+            {/* Employee */}
+            <Route element={<ProtectedRoute allowedRoles={["employee"]} />}>
+              <Route element={<AppShell />}>
+                <Route path="/app/employee/dashboard" element={<EmployeeDashboard />} />
+                <Route path="/app/employee/applications" element={<EmployeeApplications />} />
+                <Route path="/app/employee/clients" element={<EmployeeClients />} />
+                <Route path="/app/employee/analytics" element={<EmployeeAnalytics />} />
+                <Route path="/app/employee/profile" element={<EmployeeProfile />} />
+              </Route>
+            </Route>
+
+            {/* Manager */}
+            <Route element={<ProtectedRoute allowedRoles={["manager"]} />}>
+              <Route element={<AppShell />}>
+                <Route path="/app/manager/overview" element={<ManagerOverview />} />
+                <Route path="/app/manager/team" element={<ManagerTeam />} />
+                <Route path="/app/manager/clients" element={<ManagerClients />} />
+                <Route path="/app/manager/applications" element={<ManagerApplications />} />
+                <Route path="/app/manager/analytics" element={<ManagerAnalytics />} />
+                <Route path="/app/manager/settings" element={<ManagerSettings />} />
               </Route>
             </Route>
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthLayout } from "@/components/auth/AuthLayout";
@@ -14,12 +14,14 @@ const schema = z.object({
   fullName: z.string().trim().min(1, "Required").max(100),
   email: z.string().trim().email("Invalid email").max(255),
   password: z.string().min(8, "Min 8 characters").max(72),
-  role: z.enum(["client", "employee"]),
+  role: z.enum(["client", "employee", "manager"]),
   terms: z.literal(true, { errorMap: () => ({ message: "You must agree" }) }),
 });
 
 const SignUp = () => {
   const nav = useNavigate();
+  const [params] = useSearchParams();
+  const managerInvite = params.get("invite") === "manager";
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,9 +31,13 @@ const SignUp = () => {
       fullName: String(fd.get("fullName") || ""),
       email: String(fd.get("email") || ""),
       password: String(fd.get("password") || ""),
-      role: String(fd.get("role") || "client") as "client" | "employee",
+      role: String(fd.get("role") || "client") as "client" | "employee" | "manager",
       terms: fd.get("terms") === "on",
     };
+    if (data.role === "manager" && !managerInvite) {
+      toast.error("Manager signup requires an invite link");
+      return;
+    }
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
       toast.error(parsed.error.errors[0].message);
@@ -42,7 +48,7 @@ const SignUp = () => {
       email: parsed.data.email,
       password: parsed.data.password,
       options: {
-        emailRedirectTo: `${window.location.origin}/app/dashboard`,
+        emailRedirectTo: window.location.origin,
         data: { full_name: parsed.data.fullName, role: parsed.data.role },
       },
     });
@@ -52,11 +58,11 @@ const SignUp = () => {
       return;
     }
     toast.success("Account created! Welcome to OCAS Atelier.");
-    nav("/app/dashboard");
+    nav("/auth/signin");
   };
 
   return (
-    <AuthLayout title="Create your account" subtitle="Start automating your job search in minutes">
+    <AuthLayout title="Create your account" subtitle={managerInvite ? "Manager invite — full admin access" : "Start automating your job search in minutes"}>
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
           <Label htmlFor="fullName">Full name</Label>
@@ -72,13 +78,18 @@ const SignUp = () => {
         </div>
         <div>
           <Label className="mb-2 block">I am a…</Label>
-          <RadioGroup name="role" defaultValue="client" className="grid grid-cols-2 gap-3">
+          <RadioGroup name="role" defaultValue={managerInvite ? "manager" : "client"} className={`grid gap-3 ${managerInvite ? "grid-cols-3" : "grid-cols-2"}`}>
             <label className="flex items-center gap-2 border border-border rounded-lg p-3 cursor-pointer hover:border-primary">
               <RadioGroupItem value="client" /> <span className="text-sm">Client</span>
             </label>
             <label className="flex items-center gap-2 border border-border rounded-lg p-3 cursor-pointer hover:border-primary">
               <RadioGroupItem value="employee" /> <span className="text-sm">Employee</span>
             </label>
+            {managerInvite && (
+              <label className="flex items-center gap-2 border border-primary/50 rounded-lg p-3 cursor-pointer hover:border-primary bg-primary/5">
+                <RadioGroupItem value="manager" /> <span className="text-sm">Manager</span>
+              </label>
+            )}
           </RadioGroup>
         </div>
         <label className="flex items-start gap-2 text-sm text-muted-foreground">
