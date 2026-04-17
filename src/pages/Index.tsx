@@ -11,8 +11,11 @@ import { Pricing } from "@/components/marketing/Pricing";
 import { Comparison } from "@/components/marketing/Comparison";
 import { FAQ } from "@/components/marketing/FAQ";
 import { CTA } from "@/components/marketing/CTA";
+import { useForceLightTheme } from "@/hooks/useTheme";
 
-const Index = () => (
+const Index = () => {
+  useForceLightTheme();
+  return (
   <div className="min-h-screen flex flex-col">
     <Navbar />
     <main className="flex-1">
@@ -28,8 +31,9 @@ const Index = () => (
       <FAQ />
       <CTA />
     </main>
-    <Footer />
-  </div>
-);
+      <Footer />
+    </div>
+  );
+};
 
 export default Index;
