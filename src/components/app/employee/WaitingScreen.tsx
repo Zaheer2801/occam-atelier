@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Coffee, Quote, Lightbulb, RefreshCw, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import decorSpiral from "@/assets/decor-spiral.png";
-import decorStack from "@/assets/decor-stack.png";
+import recruiterAvatar from "@/assets/avatar-recruiter.png";
+import managerAvatar from "@/assets/avatar-manager.png";
 
 const MEMES = [
   { emoji: "📬", title: "Inbox zero?", text: "More like inbox heroic effort. The recruiters who reply within 4 hours are the real MVPs." },
@@ -75,8 +75,8 @@ const WaitingScreen = () => {
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
       <div className="relative overflow-hidden rounded-[2rem] bg-secondary px-8 py-14 text-center shadow-yellow">
-        <img src={decorSpiral} alt="" aria-hidden className="absolute -top-6 left-8 w-20 float-slow pointer-events-none select-none" />
-        <img src={decorStack} alt="" aria-hidden className="absolute -bottom-6 right-8 w-20 float-fast pointer-events-none select-none" />
+        <img src={recruiterAvatar} alt="" aria-hidden width={120} height={120} loading="lazy" className="absolute top-6 left-6 w-20 h-20 rounded-full object-cover bg-card shadow-elevated wobble pointer-events-none select-none" />
+        <img src={managerAvatar} alt="" aria-hidden width={120} height={120} loading="lazy" className="absolute bottom-6 right-6 w-20 h-20 rounded-full object-cover bg-card shadow-elevated float-fast pointer-events-none select-none" />
         <div className="absolute top-6 right-6 grid grid-cols-2 gap-1.5">
           {[0,1,2,3].map((i) => <span key={i} className="block h-2 w-2 rounded-[2px] bg-primary" />)}
         </div>
