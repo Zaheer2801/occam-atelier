@@ -47,14 +47,14 @@ export const Navbar = () => {
         </nav>
         <div className="hidden md:flex items-center gap-3">
           {user ? (
-            <Button onClick={() => navigate("/app/dashboard")} className="gradient-primary text-primary-foreground border-0 hover:opacity-90">
+            <Button onClick={() => navigate("/app/dashboard")} className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow">
               Open dashboard
             </Button>
           ) : (
             <>
               <Button variant="ghost" onClick={() => navigate("/auth/signin")}>Sign in</Button>
-              <Button onClick={() => navigate("/auth/signup")} className="gradient-primary text-primary-foreground border-0 hover:opacity-90 shadow-glow">
-                Get started
+              <Button onClick={() => navigate("/auth/signup")} className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow">
+                Apply Now
               </Button>
             </>
           )}
