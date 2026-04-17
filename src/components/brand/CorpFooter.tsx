@@ -16,7 +16,7 @@ export const CorpFooter = () => (
         <h4 className="text-xs uppercase tracking-[0.2em] text-corp-dim mb-4">Products</h4>
         <ul className="space-y-2 text-sm text-corp-muted">
           <li><Link to="/atelier" className="hover:text-corp-text">OCAS Atelier</Link></li>
-          <li><Link to="/auth/sign-in" className="hover:text-corp-text">Sign in</Link></li>
+          <li><Link to="/auth/signin" className="hover:text-corp-text">Sign in</Link></li>
         </ul>
       </div>
       <div>

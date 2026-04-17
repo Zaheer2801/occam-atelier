@@ -44,7 +44,7 @@ export const CorpProducts = () => {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  to="/auth/sign-in"
+                  to="/auth/signin"
                   className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white corp-gradient hover:-translate-y-0.5 transition-transform"
                 >
                   Launch Atelier <ArrowUpRight className="h-4 w-4" />
