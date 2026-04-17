@@ -1,7 +1,53 @@
 import { Link } from "react-router-dom";
 import { CorpBackdrop } from "@/components/brand/CorpBackdrop";
-import { OcasLogo } from "@/components/brand/OcasLogo";
-import { ArrowUpRight, Briefcase, BarChart3, Bot } from "lucide-react";
+import {
+  ArrowUpRight,
+  Briefcase,
+  GraduationCap,
+  FileText,
+  LifeBuoy,
+  LayoutDashboard,
+  Users,
+} from "lucide-react";
+
+type Service = {
+  icon: typeof Briefcase;
+  tag: string;
+  title: string;
+  body: string;
+  bullets: string[];
+};
+
+const services: Service[] = [
+  {
+    icon: Briefcase,
+    tag: "Staffing",
+    title: "IT Staffing & Placements",
+    body: "We connect ambitious engineers, analysts, and product folks with roles at growth-stage companies across the US.",
+    bullets: ["Full-stack, Cloud, Data, Security", "W2 & C2C engagements", "Direct hire & contract"],
+  },
+  {
+    icon: GraduationCap,
+    tag: "Training",
+    title: "Career Coaching & Training",
+    body: "Hands-on coaching that turns experience into offers — interview drills, role positioning, and market intel.",
+    bullets: ["1:1 mock interviews", "Role-tailored prep tracks", "Salary & negotiation playbooks"],
+  },
+  {
+    icon: FileText,
+    tag: "Marketing",
+    title: "Resume & Profile Marketing",
+    body: "ATS-optimized resumes, LinkedIn rewrites, and targeted outreach so the right recruiters find you first.",
+    bullets: ["Keyword & ATS tuning", "LinkedIn + portfolio polish", "Targeted recruiter outreach"],
+  },
+  {
+    icon: LifeBuoy,
+    tag: "Support",
+    title: "On-the-Job Support",
+    body: "Once you're placed, our senior bench is on call to help you ramp and ship in your first 90 days.",
+    bullets: ["Senior mentor on-call", "Architecture & code review", "Stay-onboarding playbook"],
+  },
+];
 
 export const CorpProducts = () => {
   return (
@@ -10,20 +56,53 @@ export const CorpProducts = () => {
       <div className="container">
         <div className="max-w-2xl corp-reveal">
           <p className="text-xs uppercase tracking-[0.22em] text-corp-cyan font-semibold mb-4">
-            What we build
+            What we do
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-corp-text">
-            One workspace. <span className="corp-text-gradient">Every advantage.</span>
+            A full stack of <span className="corp-text-gradient">career services</span>.
           </h2>
           <p className="mt-5 text-corp-muted text-lg">
-            Our flagship product, <span className="text-corp-text font-semibold">OCAS Atelier</span>,
-            is the AI-driven workspace where job seekers, recruiters, and managers
-            run their day-to-day work — together.
+            OCAS Software pairs an expert services team with a modern client
+            workspace so candidates, recruiters, and managers can win — together.
           </p>
         </div>
 
-        {/* Hero product card */}
-        <div className="mt-12 corp-reveal corp-card relative overflow-hidden p-8 md:p-12">
+        {/* Services grid */}
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {services.map((s, i) => (
+            <div
+              key={s.title}
+              className="corp-card p-7 corp-reveal hover:border-corp-purple/40 transition-colors"
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <div className="flex items-start gap-4">
+                <div className="h-11 w-11 rounded-xl corp-gradient-soft border border-corp-border grid place-items-center shrink-0">
+                  <s.icon className="h-5 w-5 text-corp-text" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-[10px] uppercase tracking-[0.22em] font-mono text-corp-cyan">
+                    {s.tag}
+                  </p>
+                  <h3 className="mt-1 font-display text-xl font-bold text-corp-text">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-corp-muted leading-relaxed">{s.body}</p>
+                  <ul className="mt-4 space-y-1.5">
+                    {s.bullets.map((b) => (
+                      <li key={b} className="flex items-center gap-2 text-xs text-corp-muted">
+                        <span className="h-1 w-1 rounded-full bg-corp-purple" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Featured: Atelier Portal */}
+        <div className="mt-16 corp-reveal corp-card relative overflow-hidden p-8 md:p-12">
           <div
             className="absolute -top-32 -right-32 w-[460px] h-[460px] rounded-full opacity-40 blur-3xl"
             style={{ background: "var(--corp-gradient)" }}
@@ -31,29 +110,34 @@ export const CorpProducts = () => {
           />
           <div className="relative grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl corp-gradient grid place-items-center text-white font-display font-bold">A</div>
-                <div className="font-display text-2xl text-corp-text">OCAS Atelier</div>
+              <p className="text-[10px] uppercase tracking-[0.22em] font-mono text-corp-cyan">
+                Featured product
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl corp-gradient grid place-items-center text-white">
+                  <LayoutDashboard className="h-5 w-5" />
+                </div>
+                <div className="font-display text-2xl text-corp-text">Atelier Portal</div>
               </div>
               <h3 className="mt-6 font-display text-3xl md:text-4xl font-extrabold tracking-tight text-corp-text">
-                The AI workspace for modern careers.
+                One quiet workspace for every career.
               </h3>
               <p className="mt-4 text-corp-muted">
-                Daily task feed for clients. Smart application pipeline for recruiters.
-                Real-time analytics for managers. All in one quiet, beautiful surface.
+                The portal where our clients track applications, our recruiters
+                run pipelines, and managers see the full picture in real time.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  to="/auth/signin"
+                  to="/right-job"
                   className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white corp-gradient hover:-translate-y-0.5 transition-transform"
                 >
-                  Launch Atelier <ArrowUpRight className="h-4 w-4" />
+                  Open Atelier Portal <ArrowUpRight className="h-4 w-4" />
                 </Link>
                 <Link
                   to="/atelier"
                   className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-corp-text border border-corp-border hover:bg-corp-surface-2 transition-colors"
                 >
-                  Learn more
+                  Tour the portal
                 </Link>
               </div>
             </div>
@@ -65,12 +149,12 @@ export const CorpProducts = () => {
                   <span className="h-2.5 w-2.5 rounded-full bg-corp-pink/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-corp-cyan/60" />
                   <span className="h-2.5 w-2.5 rounded-full bg-corp-purple/80" />
-                  <span className="ml-3 font-mono text-[10px] text-corp-dim">atelier · today</span>
+                  <span className="ml-3 font-mono text-[10px] text-corp-dim">portal · today</span>
                 </div>
                 {[
                   { icon: Briefcase, t: "Auto-applied to 12 roles", s: "Stripe · Vercel · Linear" },
-                  { icon: Bot, t: "Resume tuned for 'Senior PM'", s: "ATS score 94" },
-                  { icon: BarChart3, t: "Reply rate ↑ 38% this week", s: "5 interviews booked" },
+                  { icon: Users, t: "3 recruiter intros booked", s: "Northwind · Helio · Vector" },
+                  { icon: LayoutDashboard, t: "Reply rate ↑ 38% this week", s: "5 interviews scheduled" },
                 ].map(({ icon: Icon, t, s }, i) => (
                   <div
                     key={t}
@@ -87,32 +171,13 @@ export const CorpProducts = () => {
                   </div>
                 ))}
               </div>
-              {/* floating chip */}
               <div className="absolute -bottom-4 -left-4 corp-glass rounded-xl px-3 py-2 text-xs text-corp-text shadow-xl">
                 <span className="text-corp-cyan">●</span> Live
               </div>
             </div>
           </div>
         </div>
-
-        {/* secondary: brand reference card */}
-        <div className="mt-6 grid md:grid-cols-3 gap-6">
-          {[
-            { title: "Built for clients", body: "A daily, focused worklist that keeps job seekers in flow." },
-            { title: "Built for recruiters", body: "Smart pipelines, quick triage, no busywork." },
-            { title: "Built for managers", body: "Team analytics and pending queues at a glance." },
-          ].map((c, i) => (
-            <div key={c.title} className="corp-card p-6 corp-reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="text-xs uppercase tracking-[0.2em] text-corp-dim mb-3 font-mono">0{i + 1}</div>
-              <h4 className="font-display text-xl font-bold text-corp-text">{c.title}</h4>
-              <p className="mt-2 text-sm text-corp-muted">{c.body}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
 };
-
-// Re-export so unused-import lint doesn't trip
-export { OcasLogo as _OcasLogo };

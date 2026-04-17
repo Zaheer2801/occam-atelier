@@ -40,25 +40,26 @@ export const CorpHero = () => {
         </h1>
 
         <p className="mt-7 mx-auto max-w-2xl text-center text-lg text-corp-muted">
-          OCAS Software builds AI-driven tools that turn the messy work of finding,
-          applying, and growing into a calm, automated practice. Maker of{" "}
-          <span className="text-corp-text font-semibold">OCAS Atelier</span>.
+          OCAS Software is a full-service IT careers firm — staffing, coaching,
+          resume marketing, and on-the-job support — backed by our{" "}
+          <span className="text-corp-text font-semibold">Atelier Portal</span>{" "}
+          workspace for clients and teams.
         </p>
 
         {/* CTAs */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to="/auth/signin"
+            to="/right-job"
             className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient shadow-[0_18px_50px_-12px_hsl(var(--corp-purple)/0.6)] hover:shadow-[0_22px_60px_-12px_hsl(var(--corp-purple)/0.8)] transition-all hover:-translate-y-0.5"
           >
-            Launch OCAS Atelier
+            Open Atelier Portal
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
           <a
             href="#products"
             className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-corp-text border border-corp-border/80 hover:border-corp-text/40 hover:bg-corp-surface/40 transition-colors"
           >
-            Explore products
+            Explore services
           </a>
         </div>
 
