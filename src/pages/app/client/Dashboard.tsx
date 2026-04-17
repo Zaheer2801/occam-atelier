@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Briefcase, MessageSquare, Trophy, TrendingUp, Plus } from "lucide-react";
+import { Briefcase, MessageSquare, Trophy, TrendingUp, Plus, Clock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/app/StatCard";
 import { StatusBadge } from "@/components/app/StatusBadge";
@@ -7,11 +7,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useClientStatus } from "@/hooks/useClientStatus";
 
 interface App { id: string; position: string; company: string; status: string; applied_date: string; }
 
 const ClientDashboard = () => {
   const { user } = useAuth();
+  const { status } = useClientStatus();
   const [apps, setApps] = useState<App[]>([]);
   const [stats, setStats] = useState({ total: 0, interviews: 0, offers: 0, rate: 0 });
 
@@ -34,17 +36,39 @@ const ClientDashboard = () => {
   }, [user]);
 
   const name = user?.user_metadata?.full_name?.split(" ")[0] || "there";
+  const isPending = status === "pending_assignment" || status === "roles_locked";
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
+      {isPending && (
+        <div className="glass rounded-2xl p-6 border border-primary/20 animate-fade-in">
+          <div className="flex items-start gap-4">
+            <div className="h-12 w-12 rounded-full bg-success/10 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="h-6 w-6 text-success" />
+            </div>
+            <div className="flex-1">
+              <h2 className="font-display text-lg font-semibold">We've received your profile 🎉</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                A manager is reviewing your details and will assign a recruiter to you shortly. You'll get an email as soon as your specialist is ready.
+              </p>
+              <div className="mt-3 inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full bg-warning/10 text-warning border border-warning/20">
+                <Clock className="h-3 w-3" /> Pending recruiter assignment
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-3xl font-bold">Welcome back, {name} 👋</h1>
           <p className="text-muted-foreground mt-1">Here's what's happening with your search.</p>
         </div>
-        <Button asChild className="gradient-primary text-primary-foreground border-0 shadow-glow">
-          <Link to="/app/client/applications"><Plus className="h-4 w-4" /> New application</Link>
-        </Button>
+        {!isPending && (
+          <Button asChild className="gradient-primary text-primary-foreground border-0 shadow-glow">
+            <Link to="/app/client/applications"><Plus className="h-4 w-4" /> New application</Link>
+          </Button>
+        )}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

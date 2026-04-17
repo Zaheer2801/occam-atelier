@@ -48,7 +48,7 @@ const RoleSelection = () => {
     setLocking(false);
     if (error) { toast.error(error.message); return; }
     toast.success("Profile locked. Welcome aboard!");
-    nav("/app/client/waiting");
+    nav("/app/client/dashboard");
   };
 
   return (
