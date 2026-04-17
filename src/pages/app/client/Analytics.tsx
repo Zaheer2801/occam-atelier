@@ -7,7 +7,7 @@ const COLORS = ["hsl(var(--primary))", "hsl(var(--accent))", "hsl(var(--success)
 
 interface App { status: string; applied_date: string; company: string; }
 
-const Analytics = () => {
+const ClientAnalytics = () => {
   const { user } = useAuth();
   const [apps, setApps] = useState<App[]>([]);
 
@@ -115,4 +115,4 @@ const Analytics = () => {
   );
 };
 
-export default Analytics;
+export default ClientAnalytics;

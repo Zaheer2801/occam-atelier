@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
-const Profile = () => {
+const ClientProfile = () => {
   const { user } = useAuth();
   const [fullName, setFullName] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -78,4 +78,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ClientProfile;

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 interface App { id: string; position: string; company: string; status: string; applied_date: string; }
 
-const Dashboard = () => {
+const ClientDashboard = () => {
   const { user } = useAuth();
   const [apps, setApps] = useState<App[]>([]);
   const [stats, setStats] = useState({ total: 0, interviews: 0, offers: 0, rate: 0 });
@@ -43,7 +43,7 @@ const Dashboard = () => {
           <p className="text-muted-foreground mt-1">Here's what's happening with your search.</p>
         </div>
         <Button asChild className="gradient-primary text-primary-foreground border-0 shadow-glow">
-          <Link to="/app/applications"><Plus className="h-4 w-4" /> New application</Link>
+          <Link to="/app/client/applications"><Plus className="h-4 w-4" /> New application</Link>
         </Button>
       </div>
 
@@ -57,11 +57,11 @@ const Dashboard = () => {
       <div className="glass rounded-2xl">
         <div className="flex items-center justify-between p-6 border-b border-border/60">
           <h2 className="font-display font-semibold text-lg">Recent applications</h2>
-          <Button variant="ghost" size="sm" asChild><Link to="/app/applications">View all</Link></Button>
+          <Button variant="ghost" size="sm" asChild><Link to="/app/client/applications">View all</Link></Button>
         </div>
         {apps.length === 0 ? (
           <div className="p-12 text-center text-muted-foreground">
-            No applications yet. <Link to="/app/applications" className="text-primary story-link">Add your first one</Link>
+            No applications yet. <Link to="/app/client/applications" className="text-primary story-link">Add your first one</Link>
           </div>
         ) : (
           <Table>
@@ -90,4 +90,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ClientDashboard;
