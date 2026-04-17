@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_codes: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          max_uses: number
+          role: Database["public"]["Enums"]["app_role"]
+          used_count: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          max_uses?: number
+          role: Database["public"]["Enums"]["app_role"]
+          used_count?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          max_uses?: number
+          role?: Database["public"]["Enums"]["app_role"]
+          used_count?: number
+        }
+        Relationships: []
+      }
       activity_logs: {
         Row: {
           action: string
@@ -124,30 +154,60 @@ export type Database = {
       }
       profiles: {
         Row: {
+          assigned_employee_id: string | null
           avatar_url: string | null
           company_name: string | null
+          contact_preference: string | null
           created_at: string
+          date_of_birth: string | null
           full_name: string | null
           id: string
+          location: string | null
+          parsed_resume: Json | null
+          phone: string | null
+          resume_url: string | null
           setup_completed: boolean
+          status: Database["public"]["Enums"]["client_status"]
+          suggested_roles: string[]
+          target_roles: string[]
           updated_at: string
         }
         Insert: {
+          assigned_employee_id?: string | null
           avatar_url?: string | null
           company_name?: string | null
+          contact_preference?: string | null
           created_at?: string
+          date_of_birth?: string | null
           full_name?: string | null
           id: string
+          location?: string | null
+          parsed_resume?: Json | null
+          phone?: string | null
+          resume_url?: string | null
           setup_completed?: boolean
+          status?: Database["public"]["Enums"]["client_status"]
+          suggested_roles?: string[]
+          target_roles?: string[]
           updated_at?: string
         }
         Update: {
+          assigned_employee_id?: string | null
           avatar_url?: string | null
           company_name?: string | null
+          contact_preference?: string | null
           created_at?: string
+          date_of_birth?: string | null
           full_name?: string | null
           id?: string
+          location?: string | null
+          parsed_resume?: Json | null
+          phone?: string | null
+          resume_url?: string | null
           setup_completed?: boolean
+          status?: Database["public"]["Enums"]["client_status"]
+          suggested_roles?: string[]
+          target_roles?: string[]
           updated_at?: string
         }
         Relationships: []
@@ -193,6 +253,7 @@ export type Database = {
         Args: { _client_id: string; _employee_id: string }
         Returns: boolean
       }
+      validate_access_code: { Args: { _code: string }; Returns: boolean }
     }
     Enums: {
       app_role: "manager" | "employee" | "client"
@@ -203,6 +264,14 @@ export type Database = {
         | "offer"
         | "rejected"
         | "withdrawn"
+      client_status:
+        | "pending_code"
+        | "onboarding"
+        | "resume_review"
+        | "roles_locked"
+        | "pending_assignment"
+        | "assigned"
+        | "inactive"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -338,6 +407,15 @@ export const Constants = {
         "offer",
         "rejected",
         "withdrawn",
+      ],
+      client_status: [
+        "pending_code",
+        "onboarding",
+        "resume_review",
+        "roles_locked",
+        "pending_assignment",
+        "assigned",
+        "inactive",
       ],
     },
   },
