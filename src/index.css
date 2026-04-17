@@ -60,6 +60,30 @@
     --sidebar-accent-foreground: 30 10% 10%;
     --sidebar-border: 36 24% 84%;
     --sidebar-ring: 8 84% 60%;
+
+    /* ───── OCAS Software LLC — Corporate brand (dark, gradient, tech) ───── */
+    --corp-bg: 240 10% 4%;             /* near-black */
+    --corp-surface: 240 8% 8%;         /* card surface */
+    --corp-surface-2: 240 8% 12%;      /* elevated */
+    --corp-border: 240 6% 18%;
+    --corp-text: 0 0% 98%;
+    --corp-text-muted: 240 5% 65%;
+    --corp-text-dim: 240 4% 46%;
+
+    --corp-blue: 199 89% 48%;          /* sky-500 #0ea5e9 */
+    --corp-purple: 258 90% 66%;        /* violet-500 #8b5cf6 */
+    --corp-cyan: 187 85% 53%;          /* cyan-400 */
+    --corp-pink: 330 81% 60%;          /* pink-500 */
+
+    --corp-gradient: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(258 90% 66%) 100%);
+    --corp-gradient-soft: linear-gradient(135deg, hsl(199 89% 48% / 0.18) 0%, hsl(258 90% 66% / 0.18) 100%);
+    --corp-gradient-mesh:
+      radial-gradient(at 18% 12%, hsl(199 89% 48% / 0.32) 0px, transparent 55%),
+      radial-gradient(at 82% 28%, hsl(258 90% 66% / 0.32) 0px, transparent 55%),
+      radial-gradient(at 48% 88%, hsl(187 85% 53% / 0.18) 0px, transparent 60%);
+    --corp-glow-blue: 0 0 80px hsl(199 89% 48% / 0.45);
+    --corp-glow-purple: 0 0 80px hsl(258 90% 66% / 0.45);
+    --corp-shadow-card: 0 24px 60px -24px hsl(240 10% 0% / 0.6);
   }
 
   .dark {
