@@ -41,17 +41,18 @@ const ClientDashboard = () => {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
       {isPending && (
-        <div className="glass rounded-2xl p-6 border border-primary/20 animate-fade-in">
-          <div className="flex items-start gap-4">
-            <div className="h-12 w-12 rounded-full bg-success/10 flex items-center justify-center shrink-0">
-              <CheckCircle2 className="h-6 w-6 text-success" />
+        <div className="relative overflow-hidden rounded-3xl bg-secondary p-7 shadow-yellow animate-fade-in">
+          <div className="absolute -top-8 -right-8 h-28 w-28 rounded-full bg-primary/20" />
+          <div className="flex items-start gap-4 relative">
+            <div className="h-12 w-12 rounded-2xl bg-card flex items-center justify-center shrink-0 shadow-elevated">
+              <CheckCircle2 className="h-6 w-6 text-primary" />
             </div>
             <div className="flex-1">
-              <h2 className="font-display text-lg font-semibold">We've received your profile 🎉</h2>
-              <p className="text-sm text-muted-foreground mt-1">
+              <h2 className="font-display text-xl text-foreground">We've received your profile 🎉</h2>
+              <p className="text-sm text-foreground/75 mt-1 max-w-xl">
                 A manager is reviewing your details and will assign a recruiter to you shortly. You'll get an email as soon as your specialist is ready.
               </p>
-              <div className="mt-3 inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full bg-warning/10 text-warning border border-warning/20">
+              <div className="mt-3 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-card text-foreground border border-foreground/10">
                 <Clock className="h-3 w-3" /> Pending recruiter assignment
               </div>
             </div>
@@ -61,11 +62,11 @@ const ClientDashboard = () => {
 
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold">Welcome back, {name} 👋</h1>
+          <h1 className="font-display text-4xl text-foreground">Welcome back, {name} 👋</h1>
           <p className="text-muted-foreground mt-1">Here's what's happening with your search.</p>
         </div>
         {!isPending && (
-          <Button asChild className="gradient-primary text-primary-foreground border-0 shadow-glow">
+          <Button asChild className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-6 shadow-glow">
             <Link to="/app/client/applications"><Plus className="h-4 w-4" /> New application</Link>
           </Button>
         )}
@@ -78,10 +79,10 @@ const ClientDashboard = () => {
         <StatCard label="Response rate" value={stats.rate} suffix="%" icon={TrendingUp} trend={3} />
       </div>
 
-      <div className="glass rounded-2xl">
-        <div className="flex items-center justify-between p-6 border-b border-border/60">
-          <h2 className="font-display font-semibold text-lg">Recent applications</h2>
-          <Button variant="ghost" size="sm" asChild><Link to="/app/client/applications">View all</Link></Button>
+      <div className="rounded-3xl bg-card border border-border overflow-hidden">
+        <div className="flex items-center justify-between p-6 border-b border-border">
+          <h2 className="font-display text-xl text-foreground">Recent applications</h2>
+          <Button variant="ghost" size="sm" asChild className="rounded-full"><Link to="/app/client/applications">View all</Link></Button>
         </div>
         {apps.length === 0 ? (
           <div className="p-12 text-center text-muted-foreground">
