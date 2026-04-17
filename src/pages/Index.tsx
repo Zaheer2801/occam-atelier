@@ -1,37 +1,35 @@
-import { Navbar } from "@/components/marketing/Navbar";
-import { Footer } from "@/components/marketing/Footer";
-import { Hero } from "@/components/marketing/Hero";
-import { LogoCloud } from "@/components/marketing/LogoCloud";
-import { Features } from "@/components/marketing/Features";
-import { HowItWorks } from "@/components/marketing/HowItWorks";
-import { CodeShowcase } from "@/components/marketing/CodeShowcase";
-import { Stats } from "@/components/marketing/Stats";
-import { Testimonials } from "@/components/marketing/Testimonials";
-import { Pricing } from "@/components/marketing/Pricing";
-import { Comparison } from "@/components/marketing/Comparison";
-import { FAQ } from "@/components/marketing/FAQ";
-import { CTA } from "@/components/marketing/CTA";
-import { useForceLightTheme } from "@/hooks/useTheme";
+import { useEffect } from "react";
+import { CorpHeader } from "@/components/brand/CorpHeader";
+import { CorpFooter } from "@/components/brand/CorpFooter";
+import { CorpHero } from "@/components/brand/CorpHero";
+import { CorpProducts } from "@/components/brand/CorpProducts";
+import { CorpStats } from "@/components/brand/CorpStats";
+import { CorpCapabilities } from "@/components/brand/CorpCapabilities";
+import { CorpCTA } from "@/components/brand/CorpCTA";
+import { useCorpReveal } from "@/hooks/useCorpReveal";
 
 const Index = () => {
-  useForceLightTheme();
+  const ref = useCorpReveal();
+
+  // Force corporate theme on <html> while this page is mounted (no light/cream override).
+  useEffect(() => {
+    const html = document.documentElement;
+    const prev = html.className;
+    html.classList.remove("dark");
+    return () => { html.className = prev; };
+  }, []);
+
   return (
-  <div className="min-h-screen flex flex-col">
-    <Navbar />
-    <main className="flex-1">
-      <Hero />
-      <LogoCloud />
-      <Features />
-      <HowItWorks />
-      <CodeShowcase />
-      <Stats />
-      <Testimonials />
-      <Pricing />
-      <Comparison />
-      <FAQ />
-      <CTA />
-    </main>
-      <Footer />
+    <div ref={ref as React.RefObject<HTMLDivElement>} className="corporate min-h-screen flex flex-col">
+      <CorpHeader />
+      <main className="flex-1">
+        <CorpHero />
+        <CorpProducts />
+        <CorpStats />
+        <CorpCapabilities />
+        <CorpCTA />
+      </main>
+      <CorpFooter />
     </div>
   );
 };
