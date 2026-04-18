@@ -2,12 +2,7 @@ import { useEffect } from "react";
 import { CorpHeader } from "@/components/brand/CorpHeader";
 import { CorpFooter } from "@/components/brand/CorpFooter";
 import { CorpHero } from "@/components/brand/CorpHero";
-import { CorpProblemSolution } from "@/components/brand/CorpProblemSolution";
-import { CorpHowItWorks } from "@/components/brand/CorpHowItWorks";
-import { CorpProducts } from "@/components/brand/CorpProducts";
-import { CorpStats } from "@/components/brand/CorpStats";
-import { CorpCapabilities } from "@/components/brand/CorpCapabilities";
-import { CorpFAQ } from "@/components/brand/CorpFAQ";
+import { CorpJourney } from "@/components/brand/CorpJourney";
 import { CorpCTA } from "@/components/brand/CorpCTA";
 import { useCorpReveal } from "@/hooks/useCorpReveal";
 
@@ -28,12 +23,7 @@ const Index = () => {
       <CorpHeader />
       <main className="flex-1">
         <CorpHero />
-        <CorpProblemSolution />
-        <CorpHowItWorks />
-        <CorpProducts />
-        <CorpStats />
-        <CorpCapabilities />
-        <CorpFAQ />
+        <CorpJourney />
         <CorpCTA />
       </main>
       <CorpFooter />
