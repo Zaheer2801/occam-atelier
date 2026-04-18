@@ -31,14 +31,17 @@ export const CorpHero = () => {
         </div>
 
         {/* headline */}
-        <h1 className="mt-10 text-center font-display font-extrabold tracking-tight text-5xl md:text-7xl leading-[1.05]">
-          <span className="block text-corp-text">Automation for</span>
-          <span className="block corp-text-sweep">Human Potential</span>
+        <h1 className="mt-10 text-center font-display tracking-tight text-6xl md:text-8xl leading-[0.98]">
+          <span className="block text-corp-text">The career platform</span>
+          <span className="block">
+            <span className="corp-italic corp-text-gradient">built for outcomes.</span>
+          </span>
         </h1>
 
-        <p className="mt-7 mx-auto max-w-2xl text-center text-lg text-corp-muted">
-          We empower job seekers with intelligent automation, real-time tracking,
-          and dedicated marketing specialists who turn applications into interviews.
+        <p className="mt-8 mx-auto max-w-2xl text-center text-lg md:text-xl text-corp-muted leading-relaxed font-light">
+          OCAS Software pairs intelligent automation with a dedicated team of
+          marketing specialists, recruiters, and coaches — so the right roles
+          find you, faster.
         </p>
 
         {/* CTAs */}
