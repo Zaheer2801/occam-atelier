@@ -2,21 +2,25 @@ import { useEffect } from "react";
 import { CorpHeader } from "@/components/brand/CorpHeader";
 import { CorpFooter } from "@/components/brand/CorpFooter";
 import { CorpHero } from "@/components/brand/CorpHero";
+import { CorpProblemSolution } from "@/components/brand/CorpProblemSolution";
+import { CorpHowItWorks } from "@/components/brand/CorpHowItWorks";
 import { CorpProducts } from "@/components/brand/CorpProducts";
 import { CorpStats } from "@/components/brand/CorpStats";
 import { CorpCapabilities } from "@/components/brand/CorpCapabilities";
+import { CorpFAQ } from "@/components/brand/CorpFAQ";
 import { CorpCTA } from "@/components/brand/CorpCTA";
 import { useCorpReveal } from "@/hooks/useCorpReveal";
 
 const Index = () => {
   const ref = useCorpReveal();
 
-  // Force corporate theme on <html> while this page is mounted (no light/cream override).
   useEffect(() => {
     const html = document.documentElement;
     const prev = html.className;
     html.classList.remove("dark");
-    return () => { html.className = prev; };
+    return () => {
+      html.className = prev;
+    };
   }, []);
 
   return (
@@ -24,9 +28,12 @@ const Index = () => {
       <CorpHeader />
       <main className="flex-1">
         <CorpHero />
+        <CorpProblemSolution />
+        <CorpHowItWorks />
         <CorpProducts />
         <CorpStats />
         <CorpCapabilities />
+        <CorpFAQ />
         <CorpCTA />
       </main>
       <CorpFooter />

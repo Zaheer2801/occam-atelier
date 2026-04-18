@@ -128,10 +128,10 @@ export const CorpProducts = () => {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  to="/auth/signin"
+                  to="/auth/signup"
                   className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white corp-gradient hover:-translate-y-0.5 transition-transform"
                 >
-                  Sign in <ArrowUpRight className="h-4 w-4" />
+                  Start Your Journey <ArrowUpRight className="h-4 w-4" />
                 </Link>
                 <Link
                   to="/atelier"
