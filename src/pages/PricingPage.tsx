@@ -136,8 +136,8 @@ const PricingPage = () => {
             <p className="text-xs uppercase tracking-[0.22em] text-corp-cyan font-semibold mb-4">
               Pricing
             </p>
-            <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tight text-corp-text leading-[1.05]">
-              Simple, transparent <span className="corp-text-gradient">pricing</span>.
+            <h1 className="font-display text-5xl md:text-7xl tracking-tight text-corp-text leading-[1.0]">
+              Simple, transparent <span className="corp-italic corp-text-gradient">pricing.</span>
             </h1>
             <p className="mt-7 text-corp-muted text-lg">
               Invest in your career with plans designed for every stage of your

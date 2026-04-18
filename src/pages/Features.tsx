@@ -97,9 +97,9 @@ const FeaturesPage = () => {
             <p className="text-xs uppercase tracking-[0.22em] text-corp-cyan font-semibold mb-4">
               Features
             </p>
-            <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tight text-corp-text leading-[1.05]">
+            <h1 className="font-display text-5xl md:text-7xl tracking-tight text-corp-text leading-[1.0]">
               Powerful tools for{" "}
-              <span className="corp-text-gradient">career success</span>.
+              <span className="corp-italic corp-text-gradient">career success.</span>
             </h1>
             <p className="mt-7 text-corp-muted text-lg">
               Everything you need to automate applications, track progress, and
