@@ -1,92 +1,59 @@
 import { Link } from "react-router-dom";
-import { OcasLogo } from "@/components/brand/OcasLogo";
-import { CorpBackdrop } from "@/components/brand/CorpBackdrop";
-import { ArrowUpRight, PlayCircle, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import heroBg from "@/assets/corp-hero-bg.jpg";
 
 export const CorpHero = () => {
   return (
-    <section className="relative isolate overflow-hidden pt-20 pb-32 md:pt-28 md:pb-40">
-      <CorpBackdrop variant="hero" />
+    <section className="relative isolate overflow-hidden min-h-[92vh] flex items-center justify-center">
+      {/* Full-bleed editorial background */}
+      <img
+        src={heroBg}
+        alt=""
+        width={1920}
+        height={1080}
+        className="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+      {/* Cinematic darkening + subtle brand tint */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/45 to-black/80" />
+      <div
+        className="absolute inset-0 -z-10 mix-blend-overlay opacity-40"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, hsl(var(--corp-blue) / 0.25), transparent 60%)",
+        }}
+      />
 
-      <div className="container relative">
-        {/* eyebrow */}
-        <div className="flex justify-center">
-          <div className="corp-glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-corp-muted">
-            <Sparkles className="h-3.5 w-3.5 text-corp-cyan" />
-            <span>Automation for Human Potential</span>
-          </div>
+      <div className="container relative text-center px-6">
+        <div className="text-[11px] sm:text-xs uppercase tracking-[0.4em] text-white/70 font-mono">
+          Product Story
         </div>
 
-        {/* animated logo above headline */}
-        <div className="mt-10 flex justify-center">
-          <div className="relative">
-            <div
-              className="absolute inset-0 -z-10 corp-pulse-soft rounded-full"
-              style={{ boxShadow: "var(--corp-glow-purple)" }}
-            />
-            <OcasLogo variant="connected" mode="color" size={88} animate showWordmark={false} />
-            <span className="pointer-events-none absolute left-1/2 top-1/2 -ml-1 -mt-1 block h-2 w-2 rounded-full bg-corp-cyan corp-orbit" />
-            <span className="pointer-events-none absolute left-1/2 top-1/2 -ml-1 -mt-1 block h-1.5 w-1.5 rounded-full bg-corp-pink corp-orbit-slow" />
-          </div>
-        </div>
-
-        {/* headline */}
-        <h1 className="mt-10 text-center font-display tracking-tight text-6xl md:text-8xl leading-[0.98]">
-          <span className="block text-corp-text">The career platform</span>
-          <span className="block">
-            <span className="corp-italic corp-text-gradient">built for outcomes.</span>
-          </span>
+        <h1 className="mt-6 font-display tracking-tight text-white text-5xl sm:text-7xl md:text-8xl leading-[0.98] max-w-5xl mx-auto">
+          The career platform,
+          <br />
+          <span className="corp-italic">reimagined.</span>
         </h1>
 
-        <p className="mt-8 mx-auto max-w-2xl text-center text-lg md:text-xl text-corp-muted leading-relaxed font-light">
+        <p className="mt-8 mx-auto max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed font-light">
           OCAS Software pairs intelligent automation with a dedicated team of
           marketing specialists, recruiters, and coaches — so the right roles
           find you, faster.
         </p>
 
-        {/* CTAs */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-12 flex justify-center">
           <Link
             to="/auth/signup"
-            className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white corp-gradient shadow-[0_18px_50px_-12px_hsl(var(--corp-purple)/0.6)] hover:shadow-[0_22px_60px_-12px_hsl(var(--corp-purple)/0.8)] transition-all hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-2 rounded-full bg-white text-slate-900 px-8 py-4 text-sm sm:text-base font-medium shadow-2xl hover:bg-white/90 transition"
           >
-            Start Your Journey
+            Discover OCAS Software
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
-          <a
-            href="#how-it-works"
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-corp-text border border-corp-border/80 hover:border-corp-text/40 hover:bg-corp-surface/40 transition-colors"
-          >
-            <PlayCircle className="h-4 w-4" />
-            Watch Demo (2 min)
-          </a>
         </div>
+      </div>
 
-        {/* trust microcopy */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-corp-dim">
-          <span>✓ No credit card required</span>
-          <span>✓ Setup in 5 minutes</span>
-          <span>✓ Cancel anytime</span>
-        </div>
-
-        {/* trust strip */}
-        <div className="mt-14 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.22em] text-corp-dim">
-          <span className="h-px w-10 bg-corp-border" />
-          <span>Trusted by career professionals worldwide</span>
-          <span className="h-px w-10 bg-corp-border" />
-        </div>
-
-        <div className="mt-6 overflow-hidden mask-gradient">
-          <div className="corp-marquee flex gap-14 whitespace-nowrap text-corp-dim">
-            {[...Array(2)].flatMap((_, k) =>
-              ["Northwind", "Stripeline", "Helio Labs", "Vector & Co", "Quantica", "Nimbus AI", "Fieldnote", "Lumen Studio"].map((b) => (
-                <span key={`${k}-${b}`} className="font-display text-2xl tracking-tight opacity-60">
-                  {b}
-                </span>
-              ))
-            )}
-          </div>
-        </div>
+      {/* Bottom scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 text-[10px] uppercase tracking-[0.3em] font-mono">
+        Scroll
       </div>
     </section>
   );
