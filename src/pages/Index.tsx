@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { CorpHeader } from "@/components/brand/CorpHeader";
 import { CorpFooter } from "@/components/brand/CorpFooter";
 import { CorpHero } from "@/components/brand/CorpHero";
+import { CorpJourney } from "@/components/brand/CorpJourney";
 import { CorpCapabilities } from "@/components/brand/CorpCapabilities";
 import { CorpHowItWorks } from "@/components/brand/CorpHowItWorks";
 import { CorpProblemSolution } from "@/components/brand/CorpProblemSolution";
@@ -27,6 +28,7 @@ const Index = () => {
       <CorpHeader />
       <main className="flex-1">
         <CorpHero />
+        <CorpJourney />
         <CorpProblemSolution />
         <CorpCapabilities />
         <CorpHowItWorks />
