@@ -164,20 +164,27 @@
     font-family: 'Geist', 'Inter', system-ui, sans-serif;
     font-feature-settings: "ss01", "cv11";
   }
-  .corporate .font-display {
+  /* Only large headings (h1, h2) render in the editorial serif.
+     Small "display" elements stay in Geist for crisp UI legibility. */
+  .corporate h1.font-display,
+  .corporate h2.font-display {
     font-family: 'Instrument Serif', Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
   }
-  /* Neutralize aggressive bold weights on serif headings — serifs read
-     as authoritative at regular weight; bold makes them clunky. */
-  .corporate .font-display.font-extrabold,
-  .corporate .font-display.font-bold,
-  .corporate .font-display.font-semibold {
+  /* Neutralize aggressive bold weights on serif H1/H2 only. */
+  .corporate h1.font-display.font-extrabold,
+  .corporate h1.font-display.font-bold,
+  .corporate h2.font-display.font-extrabold,
+  .corporate h2.font-display.font-bold {
     font-weight: 400;
   }
-  .corporate h1.font-display,
-  .corporate h2.font-display { line-height: 1.05; letter-spacing: -0.02em; }
+  /* Small display elements (h3, h4, divs, spans) get Geist — clean & professional. */
+  .corporate .font-display:not(h1):not(h2) {
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
 
   .corp-italic { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; }
   .gradient-primary { background: var(--gradient-primary); }
