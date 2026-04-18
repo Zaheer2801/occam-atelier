@@ -180,10 +180,10 @@ const PricingPage = () => {
                 <p className="mt-2 text-sm text-corp-muted min-h-[40px]">{t.desc}</p>
                 <div className="mt-6 flex items-baseline gap-1">
                   {t.price.monthly === 0 ? (
-                    <span className="font-display text-5xl font-extrabold corp-text-gradient">Custom</span>
+                    <span className="font-sans text-5xl font-bold tracking-tight corp-text-gradient">Custom</span>
                   ) : (
                     <>
-                      <span className="font-display text-5xl font-extrabold corp-text-gradient">
+                      <span className="font-sans text-5xl font-bold tracking-tight corp-text-gradient">
                         ${annual ? t.price.annual : t.price.monthly}
                       </span>
                       <span className="text-corp-dim text-sm">/mo</span>
