@@ -12,8 +12,8 @@ export const CorpCTA = () => (
         />
         <div className="absolute inset-0 -z-10 corp-grid-bg opacity-50" />
 
-        <h2 className="font-display text-4xl md:text-6xl font-extrabold tracking-tight text-corp-text max-w-3xl mx-auto leading-tight">
-          Ready to transform <span className="corp-text-gradient">your job search?</span>
+        <h2 className="font-display text-4xl md:text-6xl tracking-tight text-corp-text max-w-3xl mx-auto leading-[1.05]">
+          Ready to transform <span className="corp-italic corp-text-gradient">your job search?</span>
         </h2>
         <p className="mt-5 max-w-xl mx-auto text-corp-muted text-lg">
           Join career professionals who've landed their dream roles with us.

@@ -68,8 +68,8 @@ export const CorpFAQ = () => (
         <p className="text-xs uppercase tracking-[0.22em] text-corp-purple font-semibold mb-4">
           FAQ
         </p>
-        <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-corp-text">
-          Frequently asked <span className="corp-text-gradient">questions</span>.
+        <h2 className="font-display text-4xl md:text-6xl tracking-tight text-corp-text">
+          Frequently asked <span className="corp-italic corp-text-gradient">questions.</span>
         </h2>
       </div>
 

@@ -30,8 +30,8 @@ export const CorpHowItWorks = () => (
         <p className="text-xs uppercase tracking-[0.22em] text-corp-cyan font-semibold mb-4">
           How it works
         </p>
-        <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-corp-text">
-          Your path to <span className="corp-text-gradient">career success</span>.
+        <h2 className="font-display text-4xl md:text-6xl tracking-tight text-corp-text">
+          Your path to <span className="corp-italic corp-text-gradient">career success.</span>
         </h2>
         <p className="mt-5 text-corp-muted text-lg">
           From resume to offer in three simple steps.

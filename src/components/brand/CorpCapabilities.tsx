@@ -16,8 +16,8 @@ export const CorpCapabilities = () => (
     <div className="container">
       <div className="max-w-2xl corp-reveal">
         <p className="text-xs uppercase tracking-[0.22em] text-corp-purple font-semibold mb-4">Capabilities</p>
-        <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-corp-text">
-          Engineering, with <span className="corp-text-gradient">human taste.</span>
+        <h2 className="font-display text-4xl md:text-6xl tracking-tight text-corp-text leading-[1.05]">
+          Engineering, with <span className="corp-italic corp-text-gradient">human taste.</span>
         </h2>
         <p className="mt-5 text-corp-muted text-lg">
           The same primitives power our workspace today and the products we ship tomorrow.
