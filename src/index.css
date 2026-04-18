@@ -141,16 +141,52 @@
 
 @layer base {
   * { @apply border-border; }
-  html { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  html {
+    font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   ::selection { @apply bg-primary/30 text-foreground; }
 }
 
 @layer utilities {
-  .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; letter-spacing: -0.03em; font-weight: 800; }
+  /* Default theme keeps a confident geometric sans display */
+  .font-display { font-family: 'Inter', sans-serif; letter-spacing: -0.03em; font-weight: 800; }
+
+  /* Corporate (dark OCAS Software) uses an editorial serif display
+     paired with Geist body for a refined, professional tone. */
+  .corporate {
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+  /* Only large headings (h1, h2) render in the editorial serif.
+     Small "display" elements stay in Geist for crisp UI legibility. */
+  .corporate h1.font-display,
+  .corporate h2.font-display {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  /* Neutralize aggressive bold weights on serif H1/H2 only. */
+  .corporate h1.font-display.font-extrabold,
+  .corporate h1.font-display.font-bold,
+  .corporate h2.font-display.font-extrabold,
+  .corporate h2.font-display.font-bold {
+    font-weight: 400;
+  }
+  /* Small display elements (h3, h4, divs, spans) get Geist — clean & professional. */
+  .corporate .font-display:not(h1):not(h2) {
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  .corp-italic { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; }
   .gradient-primary { background: var(--gradient-primary); }
   .gradient-yellow { background: var(--gradient-yellow); }
   .gradient-hero { background: var(--gradient-hero); }

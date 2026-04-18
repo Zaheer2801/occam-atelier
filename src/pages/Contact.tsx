@@ -81,8 +81,8 @@ const Contact = () => {
             <p className="text-xs uppercase tracking-[0.22em] text-corp-cyan font-semibold mb-4">
               Contact
             </p>
-            <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tight text-corp-text leading-[1.05]">
-              Let's <span className="corp-text-gradient">talk</span>.
+            <h1 className="font-display text-5xl md:text-7xl tracking-tight text-corp-text leading-[1.0]">
+              Let's <span className="corp-italic corp-text-gradient">talk.</span>
             </h1>
             <p className="mt-7 text-corp-muted text-lg">
               Have questions? We're here to help. Reach out and we'll respond

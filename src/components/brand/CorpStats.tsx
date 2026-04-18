@@ -17,7 +17,7 @@ const Stat = ({
     : val.toLocaleString();
   return (
     <div className="corp-card p-8 text-center">
-      <div className="font-display text-5xl md:text-6xl font-extrabold corp-text-gradient">
+      <div className="font-sans text-5xl md:text-6xl font-bold tracking-tight corp-text-gradient">
         <span ref={ref}>{display}</span>
         {suffix}
       </div>

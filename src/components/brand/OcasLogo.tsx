@@ -99,10 +99,10 @@ export const OcasLogo = ({
       {Icon}
       {showWordmark && (
         <div className={cn("flex flex-col leading-none", wordmarkColor)}>
-          <span className="font-display text-[1.15rem] tracking-tight font-extrabold">
-            OCAS <span className="corp-text-gradient">Software</span>
+          <span className="font-sans text-[1.05rem] tracking-tight font-semibold">
+            OCAS <span className="corp-text-gradient font-semibold">Software</span>
           </span>
-          <span className="text-[0.62rem] uppercase tracking-[0.22em] mt-1 text-corp-dim">
+          <span className="text-[0.6rem] uppercase tracking-[0.28em] mt-1 text-corp-dim font-mono">
             LLC
           </span>
         </div>

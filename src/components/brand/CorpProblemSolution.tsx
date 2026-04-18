@@ -28,9 +28,10 @@ export const CorpProblemSolution = () => (
         <p className="text-xs uppercase tracking-[0.22em] text-corp-pink font-semibold mb-4">
           The Problem
         </p>
-        <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-corp-text">
-          The job search is broken.{" "}
-          <span className="corp-text-gradient">We fixed it.</span>
+        <h2 className="font-display text-4xl md:text-6xl tracking-tight text-corp-text leading-[1.05]">
+          The job search is broken.
+          <br />
+          <span className="corp-italic corp-text-gradient">We fixed it.</span>
         </h2>
       </div>
 
