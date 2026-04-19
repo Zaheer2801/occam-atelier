@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 
 export const AppleShowcase = () => (
-  <section className="py-6">
-    <div className="container max-w-7xl grid gap-4 md:grid-cols-2">
+  <section className="py-12">
+    <div className="container max-w-7xl">
+      <div className="max-w-2xl mb-10">
+        <p className="apple-eyebrow uppercase">Two products. One platform.</p>
+        <h2 className="apple-display apple-display-lg mt-3 text-[hsl(var(--apple-ink))]">
+          Pick how you want
+          <br />
+          <span className="text-[hsl(var(--apple-muted))]">to land your next role.</span>
+        </h2>
+      </div>
+      <div className="grid gap-4 md:grid-cols-2">
       {/* Dark tile — Atelier product */}
       <article className="apple-tile-dark p-10 sm:p-14 flex flex-col justify-between min-h-[460px] relative overflow-hidden">
         <div>
@@ -60,6 +69,7 @@ export const AppleShowcase = () => (
           style={{ background: "hsl(46 96% 58%)" }}
         />
       </article>
+      </div>
     </div>
   </section>
 );
