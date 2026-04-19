@@ -9,12 +9,13 @@ const faqs = [
 ];
 
 export const AppleFAQ = () => (
-  <section className="py-24">
+  <section className="py-28">
     <div className="container max-w-3xl">
-      <div className="text-center mb-12">
+      <div className="text-center mb-14">
         <p className="apple-eyebrow uppercase">FAQ</p>
         <h2 className="apple-display apple-display-lg mt-3 text-[hsl(var(--apple-ink))]">
-          Questions, answered.
+          Questions,
+          <span className="text-[hsl(var(--apple-muted))]"> answered.</span>
         </h2>
       </div>
       <Accordion type="single" collapsible className="w-full">
