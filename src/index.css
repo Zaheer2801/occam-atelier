@@ -397,4 +397,90 @@
     0% { transform: translateY(-100%); }
     100% { transform: translateY(100%); }
   }
+
+  /* ───────────────────────────────────────────────────────────────
+     Apple-inspired theme — scoped to `.apple`
+     Used by the OCAS Software LLC public marketing site (homepage)
+     Keeps the corporate dark theme (.corporate) and the Right-Job
+     yellow defaults completely untouched.
+     ─────────────────────────────────────────────────────────────── */
+  .apple {
+    --apple-bg: 0 0% 100%;
+    --apple-surface: 0 0% 98%;
+    --apple-surface-2: 220 14% 96%;
+    --apple-ink: 220 13% 9%;
+    --apple-ink-soft: 220 9% 25%;
+    --apple-muted: 220 9% 46%;
+    --apple-line: 220 13% 91%;
+    --apple-accent: 211 100% 50%;     /* Apple blue #0071E3 */
+    --apple-accent-hover: 211 100% 45%;
+    --apple-yellow: 46 96% 58%;       /* Atelier yellow callout */
+    --apple-yellow-ink: 30 10% 10%;
+
+    background-color: hsl(var(--apple-bg));
+    color: hsl(var(--apple-ink));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
+  .apple ::selection { background: hsl(var(--apple-accent) / 0.25); color: hsl(var(--apple-ink)); }
+
+  .apple-display {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+  }
+  .apple-display-xl { font-size: clamp(2.75rem, 6vw, 5.5rem); }
+  .apple-display-lg { font-size: clamp(2rem, 4vw, 3.75rem); }
+  .apple-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: hsl(var(--apple-accent));
+  }
+  .apple-link {
+    color: hsl(var(--apple-accent));
+    transition: color .2s ease;
+  }
+  .apple-link:hover { color: hsl(var(--apple-accent-hover)); text-decoration: underline; }
+  .apple-cta {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: hsl(var(--apple-accent));
+    color: white;
+    padding: .75rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .apple-cta:hover { background: hsl(var(--apple-accent-hover)); }
+  .apple-cta-ghost {
+    display: inline-flex; align-items: center; gap: .35rem;
+    color: hsl(var(--apple-accent));
+    font-weight: 500; font-size: 0.95rem;
+    transition: gap .2s ease;
+  }
+  .apple-cta-ghost:hover { gap: .6rem; }
+  .apple-card {
+    background: hsl(var(--apple-surface));
+    border: 1px solid hsl(var(--apple-line));
+    border-radius: 22px;
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .apple-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 30px 60px -30px hsl(220 13% 9% / 0.18);
+  }
+  .apple-tile-dark {
+    background: linear-gradient(160deg, hsl(220 13% 9%) 0%, hsl(220 13% 16%) 100%);
+    color: white;
+    border-radius: 28px;
+  }
+  .apple-tile-yellow {
+    background: linear-gradient(135deg, hsl(46 96% 58%) 0%, hsl(42 96% 54%) 100%);
+    color: hsl(var(--apple-yellow-ink));
+    border-radius: 28px;
+  }
+  .apple-divider { border-top: 1px solid hsl(var(--apple-line)); }
 }

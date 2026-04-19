@@ -1,43 +1,34 @@
 import { useEffect } from "react";
-import { CorpHeader } from "@/components/brand/CorpHeader";
-import { CorpFooter } from "@/components/brand/CorpFooter";
-import { CorpHero } from "@/components/brand/CorpHero";
-import { CorpJourney } from "@/components/brand/CorpJourney";
-import { CorpCapabilities } from "@/components/brand/CorpCapabilities";
-import { CorpHowItWorks } from "@/components/brand/CorpHowItWorks";
-import { CorpProblemSolution } from "@/components/brand/CorpProblemSolution";
-import { CorpStats } from "@/components/brand/CorpStats";
-import { CorpProducts } from "@/components/brand/CorpProducts";
-import { CorpFAQ } from "@/components/brand/CorpFAQ";
-import { CorpCTA } from "@/components/brand/CorpCTA";
-import { useCorpReveal } from "@/hooks/useCorpReveal";
+import { AppleNav } from "@/components/apple/AppleNav";
+import { AppleHero } from "@/components/apple/AppleHero";
+import { AppleShowcase } from "@/components/apple/AppleShowcase";
+import { AppleAtelierBanner } from "@/components/apple/AppleAtelierBanner";
+import { AppleFeatures } from "@/components/apple/AppleFeatures";
+import { AppleStats } from "@/components/apple/AppleStats";
+import { AppleFAQ } from "@/components/apple/AppleFAQ";
+import { AppleFooter } from "@/components/apple/AppleFooter";
 
 const Index = () => {
-  const ref = useCorpReveal();
-
+  // Scope the Apple theme to the homepage only.
+  // The corporate (dark) theme used by /atelier is unaffected because it
+  // toggles its own `.corporate` class via CorpShell.
   useEffect(() => {
-    document.documentElement.classList.add("corporate");
-    return () => document.documentElement.classList.remove("corporate");
+    document.documentElement.classList.add("apple");
+    return () => document.documentElement.classList.remove("apple");
   }, []);
 
   return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="corporate min-h-screen flex flex-col bg-corp-bg text-corp-text"
-    >
-      <CorpHeader />
+    <div className="apple min-h-screen flex flex-col bg-white">
+      <AppleNav />
       <main className="flex-1">
-        <CorpHero />
-        <CorpJourney />
-        <CorpProblemSolution />
-        <CorpCapabilities />
-        <CorpHowItWorks />
-        <CorpStats />
-        <CorpProducts />
-        <CorpFAQ />
-        <CorpCTA />
+        <AppleHero />
+        <AppleAtelierBanner />
+        <AppleShowcase />
+        <AppleFeatures />
+        <AppleStats />
+        <AppleFAQ />
       </main>
-      <CorpFooter />
+      <AppleFooter />
     </div>
   );
 };
