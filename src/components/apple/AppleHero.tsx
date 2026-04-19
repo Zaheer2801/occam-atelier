@@ -37,7 +37,7 @@ export const AppleHero = () => (
       {/* Trust strip */}
       <div className="mt-10 flex items-center justify-center gap-6 text-[12px] text-[hsl(var(--apple-muted))]">
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <span className="h-1.5 w-1.5 rounded-full bg-success" />
           Live onboarding
         </span>
         <span className="hidden sm:inline">·</span>
