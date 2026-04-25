@@ -7,8 +7,7 @@ const nav = [
   { label: "Academy", href: "#academy" },
   { label: "Marketing", href: "#marketing" },
   { label: "US Bridge", href: "#us-bridge" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Atelier", href: "/atelier" },
 ];
 
 export const OcasNav = ({ onCommand }: { onCommand?: () => void }) => {

@@ -6,13 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 
 import Index from "./pages/Index";
-import Features from "./pages/Features";
-import PricingPage from "./pages/PricingPage";
-import About from "./pages/About";
-import Brand from "./pages/Brand";
 import Atelier from "./pages/Atelier";
 import RightJob from "./pages/RightJob";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 import SignIn from "./pages/auth/SignIn";
@@ -62,13 +57,8 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/brand" element={<Brand />} />
             <Route path="/atelier" element={<Atelier />} />
             <Route path="/right-job" element={<RightJob />} />
-            <Route path="/contact" element={<Contact />} />
 
             <Route path="/auth/signin" element={<SignIn />} />
             <Route path="/auth/signup" element={<SignUp />} />

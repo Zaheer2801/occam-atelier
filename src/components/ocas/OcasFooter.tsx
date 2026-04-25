@@ -11,20 +11,10 @@ const cols = [
     ],
   },
   {
-    title: "Product",
+    title: "Portals",
     links: [
-      { label: "Features", to: "/features" },
-      { label: "Pricing", to: "/pricing" },
       { label: "Atelier", to: "/atelier" },
       { label: "Right Job", to: "/right-job" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", to: "/about" },
-      { label: "Brand", to: "/brand" },
-      { label: "Contact", to: "/contact" },
     ],
   },
   {
@@ -40,7 +30,7 @@ export const OcasFooter = () => (
   <footer className="relative pt-24 pb-10 border-t border-white/5 bg-[hsl(var(--ocas-bg-2))]">
     <div className="absolute inset-0 ocas-grid-bg opacity-30 pointer-events-none" />
     <div className="container max-w-6xl relative">
-      <div className="grid gap-12 md:grid-cols-5">
+      <div className="grid gap-12 md:grid-cols-4">
         <div className="md:col-span-1">
           <div className="font-semibold text-white flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[hsl(var(--ocas-cyan))]" />
@@ -76,12 +66,6 @@ export const OcasFooter = () => (
           © {new Date().getFullYear()} OCAS Software LLC · All rights reserved.
         </span>
         <div className="flex items-center gap-5">
-          <Link to="/contact" className="hover:text-white transition-colors">
-            Privacy
-          </Link>
-          <Link to="/contact" className="hover:text-white transition-colors">
-            Terms
-          </Link>
           <span className="ocas-mono">v2026.1</span>
         </div>
       </div>
