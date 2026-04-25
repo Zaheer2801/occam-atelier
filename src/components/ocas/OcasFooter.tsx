@@ -14,7 +14,6 @@ const cols = [
     title: "Portals",
     links: [
       { label: "Atelier", to: "/atelier" },
-      { label: "Right Job", to: "/right-job" },
     ],
   },
   {

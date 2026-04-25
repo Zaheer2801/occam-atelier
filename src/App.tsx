@@ -7,7 +7,6 @@ import { AuthProvider } from "@/hooks/useAuth";
 
 import Index from "./pages/Index";
 import Atelier from "./pages/Atelier";
-import RightJob from "./pages/RightJob";
 import NotFound from "./pages/NotFound";
 
 import SignIn from "./pages/auth/SignIn";
@@ -58,7 +57,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/atelier" element={<Atelier />} />
-            <Route path="/right-job" element={<RightJob />} />
 
             <Route path="/auth/signin" element={<SignIn />} />
             <Route path="/auth/signup" element={<SignUp />} />
