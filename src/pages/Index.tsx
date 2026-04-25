@@ -1,34 +1,40 @@
-import { useEffect } from "react";
-import { AppleNav } from "@/components/apple/AppleNav";
-import { AppleHero } from "@/components/apple/AppleHero";
-import { AppleShowcase } from "@/components/apple/AppleShowcase";
-import { AppleAtelierBanner } from "@/components/apple/AppleAtelierBanner";
-import { AppleFeatures } from "@/components/apple/AppleFeatures";
-import { AppleStats } from "@/components/apple/AppleStats";
-import { AppleFAQ } from "@/components/apple/AppleFAQ";
-import { AppleFooter } from "@/components/apple/AppleFooter";
+import { useEffect, useState } from "react";
+import { OcasNav } from "@/components/ocas/OcasNav";
+import { OcasHero } from "@/components/ocas/OcasHero";
+import { OcasBento } from "@/components/ocas/OcasBento";
+import { OcasMarquee } from "@/components/ocas/OcasMarquee";
+import { OcasFAQ } from "@/components/ocas/OcasFAQ";
+import { OcasFooter } from "@/components/ocas/OcasFooter";
+import { OcasCommandBar } from "@/components/ocas/OcasCommandBar";
 
+/**
+ * OCAS Software LLC — homepage (2026 dark, bento, glassmorphism).
+ * Scoped to the `.ocas` theme so the Atelier portal (/atelier) and the
+ * Right Job yellow theme remain completely untouched.
+ */
 const Index = () => {
-  // Scope the Apple theme to the homepage only.
-  // The corporate (dark) theme used by /atelier is unaffected because it
-  // toggles its own `.corporate` class via CorpShell.
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
   useEffect(() => {
-    document.documentElement.classList.add("apple");
-    return () => document.documentElement.classList.remove("apple");
+    document.documentElement.classList.add("ocas");
+    document.body.style.backgroundColor = "hsl(230 25% 4%)";
+    return () => {
+      document.documentElement.classList.remove("ocas");
+      document.body.style.backgroundColor = "";
+    };
   }, []);
 
   return (
-    <div className="apple min-h-screen flex flex-col bg-white">
-      <AppleNav />
+    <div className="ocas min-h-screen flex flex-col">
+      <OcasNav onCommand={() => setPaletteOpen(true)} />
       <main className="flex-1">
-        <AppleHero />
-        <AppleAtelierBanner />
-        <AppleShowcase />
-        <AppleFeatures />
-        <AppleStats />
-        <AppleFAQ />
+        <OcasHero onCommand={() => setPaletteOpen(true)} />
+        <OcasMarquee />
+        <OcasBento />
+        <OcasFAQ />
       </main>
-      <AppleFooter />
+      <OcasFooter />
+      <OcasCommandBar open={paletteOpen} setOpen={setPaletteOpen} />
     </div>
   );
 };
