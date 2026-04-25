@@ -68,18 +68,11 @@ export const OcasCommandBar = ({
         run: () => navigate("/auth/signin"),
       },
       {
-        id: "pricing",
-        label: "See pricing",
-        hint: "→ /pricing",
-        keywords: ["price", "pricing", "plans", "cost"],
-        run: () => navigate("/pricing"),
-      },
-      {
-        id: "contact",
-        label: "Talk to a human",
-        hint: "→ /contact",
-        keywords: ["contact", "human", "talk", "support"],
-        run: () => navigate("/contact"),
+        id: "atelier",
+        label: "Open Atelier portal",
+        hint: "→ /atelier",
+        keywords: ["atelier", "portal", "career"],
+        run: () => navigate("/atelier"),
       },
     ],
     [navigate]
