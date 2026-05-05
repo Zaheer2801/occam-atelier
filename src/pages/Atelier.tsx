@@ -3,6 +3,7 @@ import { AtelierHero } from "@/components/atelier/AtelierHero";
 import { AtelierFeatures } from "@/components/atelier/AtelierFeatures";
 import { AtelierHowItWorks } from "@/components/atelier/AtelierHowItWorks";
 import { AtelierCTA } from "@/components/atelier/AtelierCTA";
+import { AtelierContact } from "@/components/atelier/AtelierContact";
 import { AtelierFooter } from "@/components/atelier/AtelierFooter";
 
 const Atelier = () => (
@@ -13,6 +14,7 @@ const Atelier = () => (
       <AtelierFeatures />
       <AtelierHowItWorks />
       <AtelierCTA />
+      <AtelierContact />
     </main>
     <AtelierFooter />
   </div>
