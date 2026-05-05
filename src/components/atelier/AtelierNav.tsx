@@ -4,7 +4,7 @@ import { Grid3x3 } from "lucide-react";
 const links = [
   { label: "Product", href: "#features" },
   { label: "How it works", href: "#how" },
-  { label: "Pricing", to: "/pricing" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const AtelierNav = () => {
