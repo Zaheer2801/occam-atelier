@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 
-import Index from "./pages/Index";
 import Atelier from "./pages/Atelier";
 import NotFound from "./pages/NotFound";
 
@@ -55,7 +54,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Atelier />} />
             <Route path="/atelier" element={<Atelier />} />
 
             <Route path="/auth/signin" element={<SignIn />} />
