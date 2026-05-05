@@ -4,7 +4,7 @@ import { Grid3x3 } from "lucide-react";
 const links = [
   { label: "Product", href: "#features" },
   { label: "How it works", href: "#how" },
-  { label: "Pricing", to: "/pricing" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const AtelierNav = () => {
@@ -19,17 +19,11 @@ export const AtelierNav = () => {
           </span>
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[hsl(30_10%_25%)]">
-          {links.map((l) =>
-            l.to ? (
-              <Link key={l.label} to={l.to} className="hover:text-[hsl(8_84%_55%)] transition-colors">
-                {l.label}
-              </Link>
-            ) : (
-              <a key={l.label} href={l.href} className="hover:text-[hsl(8_84%_55%)] transition-colors">
-                {l.label}
-              </a>
-            )
-          )}
+          {links.map((l) => (
+            <a key={l.label} href={l.href} className="hover:text-[hsl(8_84%_55%)] transition-colors">
+              {l.label}
+            </a>
+          ))}
         </div>
         <div className="flex items-center gap-3">
           <Link
