@@ -38,20 +38,21 @@ export const AtelierHero = () => (
 
       <div className="relative z-10 grid md:grid-cols-[1.1fr_1fr] gap-10 items-center">
         <div>
-          <p className="atelier-display text-2xl font-extrabold mb-12">Atelier</p>
+          <p className="atelier-display text-2xl font-extrabold mb-12">Atelier by OCAS</p>
           <h1 className="atelier-display atelier-display-xl">
-            The Right People
+            Stop applying.
           </h1>
           <p className="mt-3 text-2xl sm:text-3xl font-light text-[hsl(30_10%_15%)]">
-            for your right job.
+            Start landing.
           </p>
           <p className="mt-6 max-w-md text-[15px] leading-relaxed text-[hsl(30_10%_20%)]">
-            Atelier is your dedicated career department — a pod of recruiters, marketers,
-            and coaches backed by smart automation, applying and following up on your behalf.
+            Most job seekers burn 6–8 hours a day on applications — exhausted before the
+            interview even starts. Atelier gives you a team of recruiters, marketers, and
+            AI that applies, follows up, and tracks results on your behalf. You just prepare.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <Link to="/auth/signup" className="atelier-cta-coral">
-              Apply Now
+              Get My Team
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link to="/auth/signin" className="atelier-cta-ink">
