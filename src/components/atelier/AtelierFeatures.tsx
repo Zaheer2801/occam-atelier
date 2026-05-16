@@ -1,12 +1,12 @@
 import { Bot, Workflow, Inbox, BarChart3, Layers, ShieldCheck } from "lucide-react";
 
 const features = [
-  { icon: Bot, title: "AI Application Engine", body: "Resumes and cover letters tailored per role, per company, automatically. No copy-paste." },
-  { icon: Workflow, title: "Pipeline Automation", body: "We apply to hundreds of openings across USA, Canada, and India. You see every move." },
-  { icon: Inbox, title: "Unified Inbox", body: "Recruiter replies, rejections, and interview invites — all in one place. No inbox chaos." },
-  { icon: BarChart3, title: "Outcome Analytics", body: "Track positive replies, rejection patterns, and interview conversion rates in real time." },
-  { icon: Layers, title: "Follow-up Automation", body: "System detects when to follow up and sends it automatically. Recruiters remember you." },
-  { icon: ShieldCheck, title: "Built for Affordability", body: "Genuine results without agency pricing. OCAS exists because great talent shouldn't need a $5,000 recruiter." },
+  { icon: Bot, title: "AI application engine", body: "Auto-tailor resumes and cover letters per role with on-brand copy." },
+  { icon: Workflow, title: "Pipeline automation", body: "Apply, track, and nurture across hundreds of openings — no spreadsheets." },
+  { icon: Inbox, title: "Unified inbox", body: "Recruiter messages, interview invites, and follow-ups in one calm view." },
+  { icon: BarChart3, title: "Outcome analytics", body: "See exactly which roles and channels convert. Double down on what works." },
+  { icon: Layers, title: "Role library", body: "Curated tracks for software, product, design, and operations roles." },
+  { icon: ShieldCheck, title: "Privacy-first", body: "Your data never trains public models. Encrypted at rest and in transit." },
 ];
 
 export const AtelierFeatures = () => (
@@ -14,9 +14,9 @@ export const AtelierFeatures = () => (
     <div className="max-w-2xl mb-12">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[hsl(8_84%_55%)]">Inside Atelier</p>
       <h2 className="mt-3 atelier-display atelier-display-lg">
-        Your career department.
+        Every tool your team needs.
         <br />
-        Fully staffed.
+        None of the noise.
       </h2>
     </div>
     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

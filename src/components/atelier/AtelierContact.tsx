@@ -27,15 +27,17 @@ export const AtelierContact = () => {
             Let's talk.
           </h2>
           <p className="mt-4 max-w-md text-[hsl(30_10%_25%)]">
-            Questions about how Atelier works, whether it's right for you, or what it costs? A real person from OCAS replies within one business day — not a bot.
+            Questions about pricing, onboarding, or how Atelier fits your job
+            search? Send a note and a human from OCAS Software will reply
+            within one business day.
           </p>
           <p className="mt-6 text-sm text-[hsl(30_10%_35%)]">
             Or email us directly at{" "}
             <a
-              href="mailto:hello@ocassoftwarellc.com"
+              href="mailto:hello@ocassoftware.com"
               className="font-semibold text-[hsl(8_84%_55%)] underline-offset-4 hover:underline"
             >
-              hello@ocassoftwarellc.com
+              hello@ocassoftware.com
             </a>
           </p>
         </div>
@@ -78,7 +80,6 @@ export const AtelierContact = () => {
               required
               name="message"
               rows={5}
-              placeholder="Tell us about your job search — role, location, how long you've been looking."
               className="mt-1.5 w-full rounded-lg border border-[hsl(36_24%_80%)] bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-[hsl(8_84%_55%)] resize-none"
             />
           </label>
