@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 
 import Atelier from "./pages/Atelier";
+import Ocas from "./pages/Ocas";
 import NotFound from "./pages/NotFound";
 
 import SignIn from "./pages/auth/SignIn";
@@ -54,7 +55,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<Atelier />} />
+            <Route path="/" element={<Ocas />} />
             <Route path="/atelier" element={<Atelier />} />
 
             <Route path="/auth/signin" element={<SignIn />} />
