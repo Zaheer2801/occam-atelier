@@ -8,21 +8,23 @@ export const AtelierCTA = () => (
       <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 items-center relative z-10">
         <div>
           <h2 className="atelier-display atelier-display-lg">
-            Ready when you are.
+            Ready to stop doing it alone?
           </h2>
           <p className="mt-4 max-w-lg text-[hsl(30_10%_20%)]">
-            Open the Atelier portal to sign in, or create a new client account and we'll
-            match you with our automation team within 24 hours.
+            Join the waitlist or open your Atelier portal. A human from our team will match you within 24 hours.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <Link to="/auth/signup" className="atelier-cta-coral">
-              Create account
+              Get My Team
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link to="/auth/signin" className="atelier-cta-ink">
               Sign in
             </Link>
           </div>
+          <p className="mt-4 text-xs text-[hsl(30_10%_35%)]">
+            Pricing is based on your search goals — talk to us, no sales pressure.
+          </p>
         </div>
         <div className="hidden md:flex justify-end">
           <img
