@@ -145,6 +145,54 @@ const Ocas = () => {
           </div>
         </div>
 
+        {/* TRANSITION — deep water resurfacing into cream */}
+        <div className="relative -mt-px">
+          {/* gradient base: navy -> cream */}
+          <div
+            aria-hidden
+            className="h-40 md:h-56 w-full"
+            style={{
+              background:
+                "linear-gradient(180deg, hsl(220 55% 8%) 0%, hsl(214 55% 22%) 35%, hsl(200 40% 70%) 70%, hsl(40 30% 96%) 100%)",
+            }}
+          />
+          {/* layered waves rising out of the deep */}
+          <svg
+            aria-hidden
+            viewBox="0 0 1440 220"
+            preserveAspectRatio="none"
+            className="absolute inset-x-0 bottom-0 w-full h-40 md:h-56 pointer-events-none"
+          >
+            <path
+              d="M0,140 C240,180 480,80 720,110 C960,140 1200,200 1440,150 L1440,220 L0,220 Z"
+              fill="hsl(214 55% 22%)"
+              opacity="0.55"
+            />
+            <path
+              d="M0,170 C200,200 520,120 760,160 C1000,200 1240,210 1440,180 L1440,220 L0,220 Z"
+              fill="hsl(200 40% 70%)"
+              opacity="0.6"
+            />
+            <path
+              d="M0,195 C260,215 540,175 800,200 C1040,222 1260,205 1440,210 L1440,220 L0,220 Z"
+              fill="hsl(40 30% 96%)"
+            />
+          </svg>
+          {/* surface shimmer line */}
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-[22%] h-px bg-[hsl(40_30%_96%_/_0.55)] blur-[1px] animate-[shimmer_6s_ease-in-out_infinite]"
+          />
+          {/* surfacing bubbles */}
+          <span aria-hidden className="absolute left-[18%] bottom-6 h-2 w-2 rounded-full bg-white/70 blur-[1px] animate-[bubble_6s_ease-in_infinite]" />
+          <span aria-hidden className="absolute left-[62%] bottom-4 h-1.5 w-1.5 rounded-full bg-white/60 blur-[1px] animate-[bubble_7s_ease-in_infinite] [animation-delay:1.4s]" />
+          <span aria-hidden className="absolute left-[80%] bottom-8 h-1 w-1 rounded-full bg-white/60 blur-[1px] animate-[bubble_5s_ease-in_infinite] [animation-delay:2.8s]" />
+          {/* fig label tying it to philosophy */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-3 text-[10px] font-mono uppercase tracking-[0.3em] text-[hsl(220_45%_8%_/_0.55)]">
+            ⌁ surfacing
+          </div>
+        </div>
+
         {/* scoped keyframes */}
         <style>{`
           @keyframes icebergFloat {
@@ -162,6 +210,10 @@ const Ocas = () => {
             0%   { transform: translateY(0) scale(1); opacity: 0; }
             20%  { opacity: 0.8; }
             100% { transform: translateY(-120px) scale(0.4); opacity: 0; }
+          }
+          @keyframes shimmer {
+            0%, 100% { opacity: 0.3; transform: translateX(-2%); }
+            50%      { opacity: 0.8; transform: translateX(2%); }
           }
         `}</style>
       </section>
