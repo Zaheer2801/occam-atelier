@@ -169,24 +169,37 @@ const Ocas = () => {
       {/* PHILOSOPHY — potential / lion shadow */}
       <section id="philosophy" className="container max-w-7xl py-24 md:py-32">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          <div className="relative rounded-3xl overflow-hidden ring-1 ring-[hsl(220_15%_85%)] order-2 md:order-1">
-            <img src={potential} alt="A cat casting a lion-shaped shadow" width={1024} height={1024} loading="lazy" className="w-full h-auto block" />
+          <div className="relative order-2 md:order-1">
+            <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-[hsl(40_30%_92%)] to-[hsl(220_15%_88%)]" />
+            <div className="relative rounded-[1.75rem] overflow-hidden ring-1 ring-[hsl(220_15%_82%)] shadow-[0_30px_80px_-30px_hsl(220_45%_8%_/_0.35)]">
+              <img
+                src={potential}
+                alt="A pawn casting shadows of a queen, rook, bishop and knight"
+                width={1024}
+                height={1536}
+                loading="lazy"
+                className="w-full h-auto block"
+              />
+              <div className="absolute top-5 left-5 text-[10px] font-mono uppercase tracking-[0.25em] text-[hsl(220_45%_8%)] bg-[hsl(40_30%_96%_/_0.9)] backdrop-blur px-2.5 py-1 rounded">
+                Fig. 02 — Potential
+              </div>
+            </div>
           </div>
           <div className="order-1 md:order-2">
             <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[hsl(220_25%_40%)]">
               <span className="h-px w-8 bg-[hsl(220_25%_40%)]" /> Philosophy
             </span>
             <h2 className="font-display text-[44px] md:text-[64px] leading-[1] tracking-tight mt-5">
-              See the potential? <em className="italic">We do too.</em>
+              One piece. <em className="italic">Many shadows.</em>
             </h2>
             <p className="mt-6 text-[17px] leading-relaxed text-[hsl(220_25%_28%)] max-w-lg">
-              Most software shows you a cat and asks you to imagine a lion.
-              We build the lighting, the angle and the wall — the systems that
-              turn ordinary input into outsized outcome.
+              Most software hands you a pawn and calls it strategy.
+              We engineer the light, the angle and the board — so the smallest
+              move casts the shadow of a queen.
             </p>
             <ul className="mt-8 space-y-4">
               {[
-                "Automation that compounds instead of breaking.",
+                "Automation that compounds, never collapses.",
                 "Interfaces calm enough to trust with real work.",
                 "Models tuned for outcomes, not demos.",
               ].map((t) => (
