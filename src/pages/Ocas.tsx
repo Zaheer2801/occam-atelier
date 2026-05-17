@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import iceberg from "@/assets/ocas-iceberg.jpg";
 import potential from "@/assets/ocas-potential.jpg";
+import diver from "@/assets/ocas-diver.png";
 
 const Ocas = () => {
   return (
@@ -34,7 +35,21 @@ const Ocas = () => {
 
       {/* HERO — iceberg metaphor */}
       <section className="relative overflow-hidden">
-        <div className="container max-w-7xl pt-16 pb-8 md:pt-24">
+        {/* page-blended water gradient behind hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[120%] -z-0"
+          style={{
+            background:
+              "linear-gradient(180deg, hsl(40 30% 96%) 0%, hsl(200 40% 88%) 35%, hsl(210 55% 55%) 70%, hsl(220 55% 8%) 100%)",
+          }}
+        />
+        {/* animated water shimmer */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-[45%] h-px bg-[hsl(40_30%_96%_/_0.6)] blur-[1px] -z-0"
+        />
+        <div className="container max-w-7xl pt-16 pb-8 md:pt-24 relative">
           <div className="grid md:grid-cols-[1.05fr_1fr] gap-10 md:gap-16 items-center">
             <div className="relative">
               <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[hsl(220_25%_40%)]">
@@ -68,21 +83,51 @@ const Ocas = () => {
             </div>
 
             <div className="relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(15,30,60,0.35)] ring-1 ring-[hsl(220_15%_85%)]">
-                <img src={iceberg} alt="Iceberg above and below water" width={1024} height={1280} className="w-full h-auto block" />
+              <div
+                className="relative animate-[icebergFloat_9s_ease-in-out_infinite]"
+                style={{
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 75% 85% at 50% 50%, #000 55%, transparent 95%)",
+                  maskImage:
+                    "radial-gradient(ellipse 75% 85% at 50% 50%, #000 55%, transparent 95%)",
+                }}
+              >
+                <img
+                  src={iceberg}
+                  alt="Iceberg above and below water"
+                  width={1024}
+                  height={1280}
+                  className="w-full h-auto block mix-blend-multiply"
+                />
                 <div className="absolute top-5 left-5 text-[11px] font-mono uppercase tracking-widest text-[hsl(220_45%_8%)] bg-[hsl(40_30%_96%_/_0.9)] backdrop-blur px-2.5 py-1 rounded">
                   10% visible
                 </div>
                 <div className="absolute bottom-5 left-5 text-[11px] font-mono uppercase tracking-widest text-[hsl(40_30%_96%)] bg-[hsl(220_45%_8%_/_0.6)] backdrop-blur px-2.5 py-1 rounded">
                   90% engineered
                 </div>
+
+                {/* swimming diver around the iceberg */}
+                <img
+                  src={diver}
+                  alt=""
+                  aria-hidden
+                  width={120}
+                  height={120}
+                  className="absolute w-[90px] md:w-[120px] h-auto opacity-90 drop-shadow-[0_6px_12px_rgba(15,30,60,0.4)] animate-[diverSwim_14s_ease-in-out_infinite]"
+                  style={{ top: "62%", left: "-8%" }}
+                />
+
+                {/* bubbles */}
+                <span aria-hidden className="absolute left-[18%] top-[70%] h-2 w-2 rounded-full bg-white/70 blur-[1px] animate-[bubble_6s_ease-in_infinite]" />
+                <span aria-hidden className="absolute left-[28%] top-[80%] h-1.5 w-1.5 rounded-full bg-white/60 blur-[1px] animate-[bubble_7s_ease-in_infinite] [animation-delay:1.2s]" />
+                <span aria-hidden className="absolute left-[12%] top-[78%] h-1 w-1 rounded-full bg-white/60 blur-[1px] animate-[bubble_5s_ease-in_infinite] [animation-delay:2.5s]" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* deep band */}
-        <div className="relative bg-[hsl(220_55%_8%)] text-[hsl(40_30%_96%)] mt-16">
+        {/* deep band — flows out of the water gradient above */}
+        <div className="relative text-[hsl(40_30%_96%)] mt-16 bg-[hsl(220_55%_8%)]">
           <div className="container max-w-7xl py-20 md:py-28">
             <div className="grid md:grid-cols-4 gap-10">
               {[
@@ -99,6 +144,26 @@ const Ocas = () => {
             </div>
           </div>
         </div>
+
+        {/* scoped keyframes */}
+        <style>{`
+          @keyframes icebergFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50%      { transform: translateY(-14px) rotate(-0.6deg); }
+          }
+          @keyframes diverSwim {
+            0%   { transform: translate(0, 0) rotate(-4deg); }
+            25%  { transform: translate(60vw, -30px) rotate(2deg); }
+            50%  { transform: translate(110vw, 20px) rotate(-2deg) scaleX(-1); }
+            75%  { transform: translate(60vw, 50px) rotate(3deg) scaleX(-1); }
+            100% { transform: translate(0, 0) rotate(-4deg); }
+          }
+          @keyframes bubble {
+            0%   { transform: translateY(0) scale(1); opacity: 0; }
+            20%  { opacity: 0.8; }
+            100% { transform: translateY(-120px) scale(0.4); opacity: 0; }
+          }
+        `}</style>
       </section>
 
       {/* PHILOSOPHY — potential / lion shadow */}
