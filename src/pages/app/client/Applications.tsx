@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Search, Trash2, Download } from "lucide-react";
+import { Plus, Search, Trash2, Download, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,11 +14,16 @@ import { toast } from "sonner";
 
 const statuses = ["applied", "screening", "interview", "offer", "rejected", "withdrawn"] as const;
 
+const PLAN_LIMIT: Record<string, number | null> = { scout: 10, pro: 50, elite: null };
+const PLAN_LABEL: Record<string, string> = { scout: "Scout", pro: "Pro", elite: "Elite" };
+
 interface App { id: string; position: string; company: string; status: string; applied_date: string; source?: string | null; notes?: string | null; }
 
 const ClientApplications = () => {
   const { user } = useAuth();
   const [apps, setApps] = useState<App[]>([]);
+  const [totalApps, setTotalApps] = useState(0);
+  const [tier, setTier] = useState<string>("scout");
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<string>("all");
   const [open, setOpen] = useState(false);
@@ -26,12 +31,16 @@ const ClientApplications = () => {
 
   const load = async () => {
     if (!user) return;
-    const { data } = await supabase
-      .from("job_applications")
-      .select("*")
-      .eq("client_id", user.id)
-      .order("applied_date", { ascending: false });
-    setApps((data ?? []) as App[]);
+    const [{ data: profileData }, { data }] = await Promise.all([
+      supabase.from("profiles").select("subscription_tier").eq("id", user.id).maybeSingle(),
+      supabase.from("job_applications").select("*").eq("client_id", user.id).order("applied_date", { ascending: false }),
+    ]);
+    const planTier = (profileData as { subscription_tier?: string } | null)?.subscription_tier ?? "scout";
+    setTier(planTier);
+    const all = (data ?? []) as App[];
+    setTotalApps(all.length);
+    const limit = PLAN_LIMIT[planTier] ?? null;
+    setApps(limit !== null ? all.slice(0, limit) : all);
   };
   useEffect(() => { load(); }, [user]);
 
@@ -85,12 +94,32 @@ const ClientApplications = () => {
     URL.revokeObjectURL(url);
   };
 
+  const limit = PLAN_LIMIT[tier] ?? null;
+  const isCapped = limit !== null && totalApps > limit;
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
+      {isCapped && (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-amber-900">
+              {totalApps - limit} more application{totalApps - limit !== 1 ? "s" : ""} are being handled by your recruiter but aren't visible on your plan.
+            </p>
+            <p className="text-xs text-amber-700 mt-0.5">
+              <strong>{PLAN_LABEL[tier]}</strong> plan shows {limit} applications. Upgrade to Pro (50) or Elite (unlimited).
+            </p>
+          </div>
+          <Button size="sm" className="rounded-full shrink-0 gradient-primary text-primary-foreground border-0">
+            <ArrowUpRight className="h-3.5 w-3.5 mr-1" /> Upgrade
+          </Button>
+        </div>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-bold">Applications</h1>
-          <p className="text-muted-foreground mt-1">{apps.length} total · {filtered.length} shown</p>
+          <p className="text-muted-foreground mt-1">
+            {apps.length}{isCapped ? ` of ${totalApps}` : ""} total · {filtered.length} shown
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={exportCsv}><Download className="h-4 w-4" /> Export</Button>
