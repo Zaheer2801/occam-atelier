@@ -9,6 +9,10 @@ import structlog
 from datetime import datetime, timedelta, timezone
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler  # type: ignore
+from apscheduler.triggers.cron import CronTrigger            # type: ignore
+
+# US Eastern Time — where the job market operates
+_ET = "America/New_York"
 
 from .job_discoverer import discover_jobs_for_candidate
 from .company_normalizer import resolve_company
@@ -159,10 +163,34 @@ async def run_daily_digest() -> None:
 def start_scheduler() -> None:
     if _scheduler.running:
         return
-    _scheduler.add_job(run_discovery,     "interval", hours=6,          id="job_discovery",  replace_existing=True)
-    _scheduler.add_job(run_daily_digest,  "cron",     hour=8, minute=0,  id="daily_digest",   replace_existing=True)
+
+    # ── Job discovery: every 90 min, 5am–5pm ET ───────────────────────────
+    # 90-min intervals from 05:00 → 17:00 ET split into two cron patterns:
+    #   on-hour  slots: 05:00, 08:00, 11:00, 14:00, 17:00
+    #   half-hour slots: 06:30, 09:30, 12:30, 15:30
+    _scheduler.add_job(
+        run_discovery,
+        CronTrigger(hour="5,8,11,14,17", minute="0", timezone=_ET),
+        id="job_discovery_on_hour",
+        replace_existing=True,
+    )
+    _scheduler.add_job(
+        run_discovery,
+        CronTrigger(hour="6,9,12,15", minute="30", timezone=_ET),
+        id="job_discovery_half_hour",
+        replace_existing=True,
+    )
+
+    # ── Daily digest: 5pm ET (end-of-market summary) ──────────────────────
+    _scheduler.add_job(
+        run_daily_digest,
+        CronTrigger(hour=17, minute=5, timezone=_ET),
+        id="daily_digest",
+        replace_existing=True,
+    )
+
     _scheduler.start()
-    log.info("scheduler_started")
+    log.info("scheduler_started", discovery_slots=9, window_et="05:00-17:00")
 
 
 def stop_scheduler() -> None:
