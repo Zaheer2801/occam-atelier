@@ -20,10 +20,27 @@ log = structlog.get_logger()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     from services.discovery_scheduler import start_scheduler, stop_scheduler
+    from services.browser_pool import get_pool
+    from services.screenshot_uploader import ensure_bucket
+
+    # Start browser pool (Playwright)
+    pool = get_pool()
+    try:
+        await pool.start()
+        log.info("browser_pool_ready")
+    except Exception as exc:
+        log.warning("browser_pool_start_failed", error=str(exc)[:120],
+                    hint="Run: playwright install chromium")
+
+    ensure_bucket()
     start_scheduler()
     log.info("autoapply_backend_start")
     yield
     stop_scheduler()
+    try:
+        await pool.stop()
+    except Exception:
+        pass
     log.info("autoapply_backend_stop")
 
 
@@ -45,10 +62,12 @@ from api.resume import router as resume_router
 from api.parse import router as parse_router
 from api.onboarding import router as onboarding_router
 from api.jobs import router as jobs_router
+from api.apply import router as apply_router
 app.include_router(resume_router)
 app.include_router(parse_router)
 app.include_router(onboarding_router)
 app.include_router(jobs_router)
+app.include_router(apply_router)
 
 
 @app.get("/health")
