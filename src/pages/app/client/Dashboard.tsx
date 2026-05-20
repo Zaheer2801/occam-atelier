@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Briefcase, MessageSquare, Trophy, TrendingUp, Clock, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { Briefcase, MessageSquare, Trophy, TrendingUp, Clock, CheckCircle2, ArrowUpRight, Sparkles, ExternalLink, Bell } from "lucide-react";
+
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/app/StatCard";
 import { StatusBadge } from "@/components/app/StatusBadge";
@@ -10,6 +12,16 @@ import { Link } from "react-router-dom";
 import { useClientStatus } from "@/hooks/useClientStatus";
 
 interface App { id: string; position: string; company: string; status: string; applied_date: string; }
+
+interface JobMatch {
+  id: string; title: string; company_name: string; location: string;
+  is_remote: boolean; salary_min: number | null; salary_max: number | null;
+  fit_score: number; source_url: string; source: string;
+}
+
+interface Notification {
+  id: string; type: string; priority: string; title: string; body: string; created_at: string; read_at: string | null;
+}
 
 interface Stats {
   total: number; interviews: number; offers: number; rate: number;
@@ -33,6 +45,8 @@ const ClientDashboard = () => {
   const [apps, setApps] = useState<App[]>([]);
   const [totalApps, setTotalApps] = useState(0);
   const [tier, setTier] = useState<string>("scout");
+  const [jobMatches, setJobMatches] = useState<JobMatch[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [stats, setStats] = useState<Stats>({
     total: 0, interviews: 0, offers: 0, rate: 0,
     totalTrend: 0, interviewsTrend: 0, offersTrend: 0, rateTrend: 0,
@@ -84,6 +98,22 @@ const ClientDashboard = () => {
         offersTrend:     pct(curr.filter(isOffer).length,   prev.filter(isOffer).length),
         rateTrend:       prevRate === 0 ? 0 : currRate - prevRate,
       });
+
+      // Fetch job matches + notifications in parallel
+      try {
+        const [jobRes, notifRes] = await Promise.all([
+          fetch(`${API}/api/jobs/feed?candidate_id=${user.id}&limit=5&min_score=0.6`),
+          fetch(`${API}/api/jobs/notifications?candidate_id=${user.id}&limit=5&unread_only=true`),
+        ]);
+        if (jobRes.ok) {
+          const jd = await jobRes.json();
+          setJobMatches(jd.jobs || []);
+        }
+        if (notifRes.ok) {
+          const nd = await notifRes.json();
+          setNotifications(nd.notifications || []);
+        }
+      } catch { /* backend may be offline in dev */ }
     })();
   }, [user]);
 
@@ -186,6 +216,79 @@ const ClientDashboard = () => {
           </Table>
         )}
       </div>
+
+      {/* Unread high-priority notifications */}
+      {notifications.length > 0 && (
+        <div className="rounded-3xl bg-card border border-border overflow-hidden">
+          <div className="flex items-center gap-3 p-6 border-b border-border">
+            <Bell className="h-5 w-5 text-primary" />
+            <h2 className="font-display text-xl text-foreground">Alerts</h2>
+            <span className="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">
+              {notifications.length}
+            </span>
+          </div>
+          <ul className="divide-y divide-border">
+            {notifications.map((n) => (
+              <li key={n.id} className="px-6 py-4 flex items-start gap-3">
+                <div className={`mt-1 h-2 w-2 rounded-full shrink-0 ${n.priority === "high" ? "bg-green-500" : "bg-amber-400"}`} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-foreground">{n.title}</p>
+                  {n.body && <p className="text-xs text-muted-foreground mt-0.5">{n.body}</p>}
+                </div>
+                <span className="text-xs text-muted-foreground shrink-0">
+                  {new Date(n.created_at).toLocaleDateString()}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Top job matches */}
+      {jobMatches.length > 0 && (
+        <div className="rounded-3xl bg-card border border-border overflow-hidden">
+          <div className="flex items-center justify-between p-6 border-b border-border">
+            <div className="flex items-center gap-3">
+              <Sparkles className="h-5 w-5 text-primary" />
+              <h2 className="font-display text-xl text-foreground">Top job matches</h2>
+            </div>
+            <span className="text-xs text-muted-foreground">Updated every 6 hours</span>
+          </div>
+          <ul className="divide-y divide-border">
+            {jobMatches.map((j) => (
+              <li key={j.id} className="px-6 py-4 flex items-center gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold text-foreground truncate">{j.title}</p>
+                    {j.is_remote && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-medium shrink-0">Remote</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                    {j.company_name} · {j.location || "Flexible"}
+                    {j.salary_min ? ` · $${(j.salary_min / 1000).toFixed(0)}k+` : ""}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className={`text-xs font-bold px-2 py-1 rounded-lg ${
+                    j.fit_score >= 0.92 ? "bg-green-100 text-green-800" :
+                    j.fit_score >= 0.75 ? "bg-amber-100 text-amber-800" :
+                    "bg-muted text-muted-foreground"
+                  }`}>
+                    {Math.round(j.fit_score * 100)}% fit
+                  </div>
+                  {j.source_url && (
+                    <a href={j.source_url} target="_blank" rel="noreferrer"
+                       className="text-muted-foreground hover:text-primary transition-colors">
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

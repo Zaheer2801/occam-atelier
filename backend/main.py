@@ -19,8 +19,11 @@ log = structlog.get_logger()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    from services.discovery_scheduler import start_scheduler, stop_scheduler
+    start_scheduler()
     log.info("autoapply_backend_start")
     yield
+    stop_scheduler()
     log.info("autoapply_backend_stop")
 
 
@@ -41,9 +44,11 @@ app.add_middleware(
 from api.resume import router as resume_router
 from api.parse import router as parse_router
 from api.onboarding import router as onboarding_router
+from api.jobs import router as jobs_router
 app.include_router(resume_router)
 app.include_router(parse_router)
 app.include_router(onboarding_router)
+app.include_router(jobs_router)
 
 
 @app.get("/health")
