@@ -289,7 +289,7 @@ const Ocas = () => {
             <Link to="/atelier" className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold hover:text-[hsl(214_88%_52%)] transition-colors">
               Open Atelier <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
-            <Link to="/auth/signup" className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(220_45%_8%)] text-[hsl(40_30%_96%)] px-4 py-2 text-sm font-semibold hover:bg-[hsl(214_88%_52%)] transition-colors">
+            <Link to="/atelier" className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(220_45%_8%)] text-[hsl(40_30%_96%)] px-4 py-2 text-sm font-semibold hover:bg-[hsl(214_88%_52%)] transition-colors">
               Get started
             </Link>
           </div>
@@ -701,7 +701,7 @@ const Ocas = () => {
             </p>
           </div>
           <div className="flex md:justify-end gap-3 flex-wrap items-center">
-            <Link to="/auth/signup" className="inline-flex items-center gap-2 rounded-full bg-[hsl(214_88%_52%)] text-white px-6 py-3.5 text-sm font-semibold hover:bg-[hsl(214_88%_60%)] transition-colors">
+            <Link to="/atelier" className="inline-flex items-center gap-2 rounded-full bg-[hsl(214_88%_52%)] text-white px-6 py-3.5 text-sm font-semibold hover:bg-[hsl(214_88%_60%)] transition-colors">
               Get started <ArrowRight className="h-4 w-4" />
             </Link>
             <a href="#contact" className="inline-flex items-center gap-2 rounded-full border border-white/25 text-[hsl(40_30%_90%)] px-6 py-3.5 text-sm font-semibold hover:border-white/50 hover:text-white transition-colors">

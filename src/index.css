@@ -84,6 +84,71 @@
     --corp-glow-blue: 0 0 80px hsl(199 89% 48% / 0.45);
     --corp-glow-purple: 0 0 80px hsl(258 90% 66% / 0.45);
     --corp-shadow-card: 0 24px 60px -24px hsl(240 10% 0% / 0.6);
+
+    /* ── OCAS Atelier — Mission Control Design System (DESIGN.md) ── */
+    --aa-brand:              #E8A045;
+    --aa-brand-dim:          #B57A2F;
+    --aa-brand-subtle:       rgba(232,160,69,0.10);
+    --aa-brand-border:       rgba(232,160,69,0.35);
+    --aa-brand-glow:         0 0 24px rgba(232,160,69,0.28);
+
+    --aa-bg-page:            #07070F;
+    --aa-bg-base:            #0D0D1A;
+    --aa-bg-surface:         #121220;
+    --aa-bg-elevated:        #1A1A2E;
+    --aa-bg-overlay:         rgba(7,7,15,0.85);
+    --aa-bg-input:           #0D0D1A;
+    --aa-bg-hover:           rgba(255,255,255,0.04);
+    --aa-bg-active:          rgba(255,255,255,0.07);
+
+    --aa-text-primary:       #EEEEFF;
+    --aa-text-secondary:     #8888A8;
+    --aa-text-tertiary:      #55557A;
+    --aa-text-inverse:       #07070F;
+    --aa-text-brand:         #E8A045;
+    --aa-text-link:          #6B9FE4;
+
+    --aa-success:            #22C55E;
+    --aa-success-subtle:     rgba(34,197,94,0.10);
+    --aa-success-border:     rgba(34,197,94,0.25);
+
+    --aa-warning:            #F59E0B;
+    --aa-warning-subtle:     rgba(245,158,11,0.10);
+    --aa-warning-border:     rgba(245,158,11,0.25);
+
+    --aa-danger:             #EF4444;
+    --aa-danger-subtle:      rgba(239,68,68,0.10);
+    --aa-danger-border:      rgba(239,68,68,0.25);
+
+    --aa-info:               #3B82F6;
+    --aa-info-subtle:        rgba(59,130,246,0.10);
+    --aa-info-border:        rgba(59,130,246,0.25);
+
+    --aa-score-auto:         #22C55E;
+    --aa-score-pending:      #F59E0B;
+    --aa-score-manual:       #3B82F6;
+    --aa-score-skip:         #55557A;
+
+    --aa-border-subtle:      rgba(255,255,255,0.06);
+    --aa-border-default:     rgba(255,255,255,0.10);
+    --aa-border-emphasis:    rgba(255,255,255,0.18);
+    --aa-border-focus:       rgba(232,160,69,0.60);
+
+    --aa-shadow-sm:          0 1px 3px rgba(0,0,0,0.5);
+    --aa-shadow-md:          0 4px 16px rgba(0,0,0,0.6);
+    --aa-shadow-lg:          0 8px 40px rgba(0,0,0,0.70);
+    --aa-shadow-brand:       0 0 24px rgba(232,160,69,0.28);
+    --aa-shadow-focus:       0 0 0 3px rgba(232,160,69,0.40);
+
+    --aa-radius-sm:  4px;
+    --aa-radius-md:  8px;
+    --aa-radius-lg:  12px;
+    --aa-radius-xl:  16px;
+    --aa-radius-full: 9999px;
+
+    --aa-transition-fast: 150ms ease;
+    --aa-transition-base: 250ms ease;
+    --aa-transition-slow: 400ms ease;
   }
 
   .dark {

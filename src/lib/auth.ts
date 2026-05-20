@@ -5,7 +5,7 @@ export type Role = "manager" | "employee" | "client";
 export const ROLE_HOME: Record<Role, string> = {
   manager: "/app/manager/overview",
   employee: "/app/employee/dashboard",
-  client: "/app/client/dashboard",
+  client: "/atelier/onboarding",
 };
 
 export async function getUserRole(userId: string): Promise<Role | null> {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,6 +10,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Eye, EyeOff, ArrowRight, Briefcase, Search, ShieldCheck } from "lucide-react";
 import { ROLE_HOME } from "@/lib/auth";
+
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+const EU_EEA_UK = new Set([
+  "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE",
+  "IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE",
+  "IS","LI","NO","CH","GB",
+]);
 
 const schema = z.object({
   fullName: z.string().trim().min(1, "Required").max(100),
@@ -24,6 +32,18 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<"client" | "employee" | "manager">("client");
+  const [geoBlocked, setGeoBlocked] = useState(false);
+
+  useEffect(() => {
+    if (role !== "client") return;
+    (async () => {
+      try {
+        const res = await fetch(`${API}/api/onboarding/geo-check`, { method: "POST" });
+        const data = await res.json();
+        if (!data.allowed) setGeoBlocked(true);
+      } catch { /* fail open */ }
+    })();
+  }, [role]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,6 +85,20 @@ const SignUp = () => {
     const roleKey = parsed.data.role as keyof typeof ROLE_HOME;
     nav(ROLE_HOME[roleKey] ?? "/app/client/dashboard");
   };
+
+  if (geoBlocked && role === "client") {
+    return (
+      <AuthLayout title="US-only at launch" subtitle="OCAS Atelier is currently available to US candidates only">
+        <div className="text-center py-4 space-y-3">
+          <p className="text-sm text-muted-foreground">We detected a non-US IP address.</p>
+          <p className="text-sm text-muted-foreground">Join our EU/UK waitlist — launching internationally in 2026.</p>
+          <a href="mailto:hello@ocassoftwarellc.com" className="text-sm font-semibold text-primary hover:underline">
+            Join waitlist →
+          </a>
+        </div>
+      </AuthLayout>
+    );
+  }
 
   return (
     <AuthLayout title="Create your account" subtitle="Start automating your job search in minutes">

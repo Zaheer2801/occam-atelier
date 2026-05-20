@@ -30,6 +30,7 @@ import PersonalInfo from "./pages/onboarding/PersonalInfo";
 import ResumeUpload from "./pages/onboarding/ResumeUpload";
 import ResumeReview from "./pages/onboarding/ResumeReview";
 import RoleSelection from "./pages/onboarding/RoleSelection";
+import AtelierOnboarding from "./pages/onboarding/AtelierOnboarding";
 
 import EmployeeDashboard from "./pages/app/employee/Dashboard";
 import EmployeeApplications from "./pages/app/employee/Applications";
@@ -76,7 +77,12 @@ const App = () => (
               <Route path="/app/team" element={<RoleRedirect />} />
             </Route>
 
-            {/* Client onboarding (status-gated, no AppShell) */}
+            {/* Atelier 6-step onboarding (Week 1 — new flow) */}
+            <Route element={<ProtectedRoute allowedRoles={["client"]} />}>
+              <Route path="/atelier/onboarding" element={<AtelierOnboarding />} />
+            </Route>
+
+            {/* Legacy client onboarding (status-gated, no AppShell) */}
             <Route element={<ProtectedRoute allowedRoles={["client"]} />}>
               <Route element={<ClientStatusGate />}>
                 <Route path="/onboarding/personal-info" element={<PersonalInfo />} />
