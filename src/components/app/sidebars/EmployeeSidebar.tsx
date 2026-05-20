@@ -23,7 +23,7 @@ export const EmployeeSidebar = () => {
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border h-16 flex items-center px-4">
         {collapsed ? (
-          <div className="h-9 w-9 rounded-2xl bg-primary flex items-center justify-center font-display font-bold text-primary-foreground text-base shadow-glow">R</div>
+          <div className="h-9 w-9 rounded-2xl bg-primary flex items-center justify-center font-display font-bold text-primary-foreground text-base shadow-glow">O</div>
         ) : (
           <Logo />
         )}

@@ -35,7 +35,7 @@ export const StatCard = ({ label, value, suffix = "", icon: Icon, trend }: Props
       {typeof trend === "number" && (
         <div className={`mt-3 flex items-center gap-1 text-xs font-medium ${trend >= 0 ? "text-success" : "text-destructive"}`}>
           {trend >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
-          {Math.abs(trend)}% from last month
+          {Math.abs(trend)}% vs last 30 days
         </div>
       )}
     </div>

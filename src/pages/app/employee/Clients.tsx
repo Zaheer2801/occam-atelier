@@ -64,7 +64,7 @@ const EmployeeClients = () => {
                     {r.company && <div className="text-xs text-muted-foreground">{r.company}</div>}
                   </div>
                 </div>
-                <Link to="/app/employee/applications" className="text-sm story-link text-primary">View applications →</Link>
+                <Link to={`/app/employee/clients/${r.id}`} className="text-sm story-link text-primary">View applications →</Link>
               </li>
             ))}
           </ul>

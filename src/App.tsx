@@ -34,12 +34,14 @@ import RoleSelection from "./pages/onboarding/RoleSelection";
 import EmployeeDashboard from "./pages/app/employee/Dashboard";
 import EmployeeApplications from "./pages/app/employee/Applications";
 import EmployeeClients from "./pages/app/employee/Clients";
+import EmployeeClientDetail from "./pages/app/employee/ClientDetail";
 import EmployeeAnalytics from "./pages/app/employee/Analytics";
 import EmployeeProfile from "./pages/app/employee/Profile";
 
 import ManagerOverview from "./pages/app/manager/Overview";
 import ManagerTeam from "./pages/app/manager/Team";
 import ManagerClients from "./pages/app/manager/Clients";
+import ManagerClientDetail from "./pages/app/manager/ClientDetail";
 import ManagerPendingClients from "./pages/app/manager/PendingClients";
 import ManagerApplications from "./pages/app/manager/Applications";
 import ManagerAnalytics from "./pages/app/manager/Analytics";
@@ -103,6 +105,7 @@ const App = () => (
                 <Route path="/app/employee/dashboard" element={<EmployeeDashboard />} />
                 <Route path="/app/employee/applications" element={<EmployeeApplications />} />
                 <Route path="/app/employee/clients" element={<EmployeeClients />} />
+                <Route path="/app/employee/clients/:id" element={<EmployeeClientDetail />} />
                 <Route path="/app/employee/analytics" element={<EmployeeAnalytics />} />
                 <Route path="/app/employee/profile" element={<EmployeeProfile />} />
               </Route>
@@ -115,6 +118,7 @@ const App = () => (
                 <Route path="/app/manager/team" element={<ManagerTeam />} />
                 <Route path="/app/manager/clients" element={<ManagerClients />} />
                 <Route path="/app/manager/clients/pending" element={<ManagerPendingClients />} />
+                <Route path="/app/manager/clients/:id" element={<ManagerClientDetail />} />
                 <Route path="/app/manager/applications" element={<ManagerApplications />} />
                 <Route path="/app/manager/analytics" element={<ManagerAnalytics />} />
                 <Route path="/app/manager/settings" element={<ManagerSettings />} />

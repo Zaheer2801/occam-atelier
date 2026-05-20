@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Bell, LogOut, User as UserIcon } from "lucide-react";
+import { LogOut, User as UserIcon } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ClientSidebar } from "./sidebars/ClientSidebar";
 import { EmployeeSidebar } from "./sidebars/EmployeeSidebar";
@@ -49,7 +49,6 @@ export const AppShell = () => {
               )}
             </div>
             <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" className="rounded-full"><Bell className="h-4 w-4" /></Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-9 px-2 gap-2 rounded-full">

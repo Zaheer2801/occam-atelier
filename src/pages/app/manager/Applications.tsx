@@ -11,15 +11,28 @@ const statuses = ["applied", "screening", "interview", "offer", "rejected", "wit
 
 interface App { id: string; position: string; company: string; status: string; applied_date: string; client_id: string; }
 
+const PAGE_SIZE = 25;
+
 const ManagerApplications = () => {
   const [apps, setApps] = useState<App[]>([]);
+  const [clientNames, setClientNames] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<string>("all");
   const [q, setQ] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     (async () => {
       const { data } = await supabase.from("job_applications").select("*").order("applied_date", { ascending: false });
-      setApps((data ?? []) as App[]);
+      const all = (data ?? []) as App[];
+      setApps(all);
+
+      const ids = [...new Set(all.map((a) => a.client_id))];
+      if (ids.length) {
+        const { data: profiles } = await supabase.from("profiles").select("id,full_name").in("id", ids);
+        const map: Record<string, string> = {};
+        (profiles ?? []).forEach((p) => { map[p.id] = p.full_name ?? "Client"; });
+        setClientNames(map);
+      }
     })();
   }, []);
 
@@ -29,9 +42,12 @@ const ManagerApplications = () => {
     return s && q2;
   }), [apps, status, q]);
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   const exportCsv = () => {
-    const header = "Position,Company,ClientID,Status,Date\n";
-    const rows = filtered.map((a) => `"${a.position}","${a.company}",${a.client_id},${a.status},${a.applied_date}`).join("\n");
+    const header = "Position,Company,Client,Status,Date\n";
+    const rows = filtered.map((a) => `"${a.position}","${a.company}","${clientNames[a.client_id] ?? a.client_id.slice(0,8)}",${a.status},${a.applied_date}`).join("\n");
     const blob = new Blob([header + rows], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -52,9 +68,9 @@ const ManagerApplications = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input className="pl-9" placeholder="Search company or position" value={q} onChange={(e) => setQ(e.target.value)} />
+          <Input className="pl-9" placeholder="Search company or position" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
         </div>
-        <Select value={status} onValueChange={setStatus}>
+        <Select value={status} onValueChange={(v) => { setStatus(v); setPage(1); }}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All statuses</SelectItem>
@@ -67,28 +83,39 @@ const ManagerApplications = () => {
         {filtered.length === 0 ? (
           <div className="p-16 text-center text-muted-foreground">No applications.</div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Position</TableHead>
-                <TableHead>Company</TableHead>
-                <TableHead>Client</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Date</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.map((a) => (
-                <TableRow key={a.id}>
-                  <TableCell className="font-medium">{a.position}</TableCell>
-                  <TableCell>{a.company}</TableCell>
-                  <TableCell className="font-mono text-xs text-muted-foreground">{a.client_id.slice(0, 8)}…</TableCell>
-                  <TableCell><StatusBadge status={a.status} /></TableCell>
-                  <TableCell className="text-muted-foreground">{new Date(a.applied_date).toLocaleDateString()}</TableCell>
+          <>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Position</TableHead>
+                  <TableHead>Company</TableHead>
+                  <TableHead>Client</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Date</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {paginated.map((a) => (
+                  <TableRow key={a.id}>
+                    <TableCell className="font-medium">{a.position}</TableCell>
+                    <TableCell>{a.company}</TableCell>
+                    <TableCell className="text-muted-foreground">{clientNames[a.client_id] ?? a.client_id.slice(0, 8) + "…"}</TableCell>
+                    <TableCell><StatusBadge status={a.status} /></TableCell>
+                    <TableCell className="text-muted-foreground">{new Date(a.applied_date).toLocaleDateString()}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between px-6 py-4 border-t border-border text-sm text-muted-foreground">
+                <span>Page {page} of {totalPages}</span>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
+                  <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
