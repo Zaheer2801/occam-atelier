@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Briefcase, MessageSquare, Trophy, TrendingUp, Clock, CheckCircle2, ArrowUpRight, Sparkles, ExternalLink, Bell } from "lucide-react";
+import { Briefcase, MessageSquare, Trophy, TrendingUp, Clock, CheckCircle2, ArrowUpRight, Sparkles, ExternalLink, Bell, Pause, Play, AlertOctagon, PartyPopper } from "lucide-react";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useClientStatus } from "@/hooks/useClientStatus";
+import { toast } from "sonner";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface App { id: string; position: string; company: string; status: string; applied_date: string; }
 
@@ -39,6 +44,39 @@ const PLAN_COLOR: Record<string, string> = {
 const pct = (curr: number, prev: number) =>
   prev === 0 ? (curr > 0 ? 100 : 0) : Math.round(((curr - prev) / prev) * 100);
 
+const HiredDialog = ({ onConfirm, disabled }: { onConfirm: (company: string) => void; disabled: boolean }) => {
+  const [company, setCompany] = useState("");
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" className="rounded-full border-green-600 text-green-700 hover:bg-green-600 hover:text-white" disabled={disabled}>
+          <PartyPopper className="h-4 w-4 mr-1.5" /> I got hired!
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Congratulations!</AlertDialogTitle>
+          <AlertDialogDescription>
+            We'll stop all active applications and celebrate your new role. Which company are you joining? (Optional)
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <input
+          className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring"
+          placeholder="Company name (optional)"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => onConfirm(company)} className="bg-green-600 hover:bg-green-700 text-white">
+            Confirm — I'm hired!
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
+
 const ClientDashboard = () => {
   const { user } = useAuth();
   const { status } = useClientStatus();
@@ -47,6 +85,8 @@ const ClientDashboard = () => {
   const [tier, setTier] = useState<string>("scout");
   const [jobMatches, setJobMatches] = useState<JobMatch[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isPaused, setIsPaused] = useState(false);
+  const [controlsLoading, setControlsLoading] = useState(false);
   const [stats, setStats] = useState<Stats>({
     total: 0, interviews: 0, offers: 0, rate: 0,
     totalTrend: 0, interviewsTrend: 0, offersTrend: 0, rateTrend: 0,
@@ -99,11 +139,12 @@ const ClientDashboard = () => {
         rateTrend:       prevRate === 0 ? 0 : currRate - prevRate,
       });
 
-      // Fetch job matches + notifications in parallel
+      // Fetch job matches, notifications, and controls status in parallel
       try {
-        const [jobRes, notifRes] = await Promise.all([
+        const [jobRes, notifRes, ctrlRes] = await Promise.all([
           fetch(`${API}/api/jobs/feed?candidate_id=${user.id}&limit=5&min_score=0.6`),
           fetch(`${API}/api/jobs/notifications?candidate_id=${user.id}&limit=5&unread_only=true`),
+          fetch(`${API}/api/controls/status/${user.id}`),
         ]);
         if (jobRes.ok) {
           const jd = await jobRes.json();
@@ -113,9 +154,47 @@ const ClientDashboard = () => {
           const nd = await notifRes.json();
           setNotifications(nd.notifications || []);
         }
+        if (ctrlRes.ok) {
+          const cd = await ctrlRes.json();
+          setIsPaused(cd.is_paused || false);
+        }
       } catch { /* backend may be offline in dev */ }
     })();
   }, [user]);
+
+  const ctrlPost = async (endpoint: string, extra: object = {}) => {
+    if (!user) return;
+    setControlsLoading(true);
+    try {
+      const res = await fetch(`${API}/api/controls/${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ candidate_id: user.id, ...extra }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : "Action failed");
+    } finally {
+      setControlsLoading(false);
+    }
+  };
+
+  const togglePause = async () => {
+    await ctrlPost(isPaused ? "unpause" : "pause");
+    setIsPaused((v) => !v);
+    toast.success(isPaused ? "Auto-apply resumed" : "Auto-apply paused");
+  };
+
+  const emergencyStop = async () => {
+    await ctrlPost("emergency-stop");
+    setIsPaused(true);
+    toast.success("Emergency stop activated — all activity halted");
+  };
+
+  const markHired = async (company: string) => {
+    await ctrlPost("hired", { hired_company: company || undefined });
+    toast.success("Congratulations! Applications have been withdrawn.");
+  };
 
   const name = user?.user_metadata?.full_name?.split(" ")[0] || "there";
   const isPending = status === "pending_assignment" || status === "roles_locked";
@@ -252,7 +331,7 @@ const ClientDashboard = () => {
               <Sparkles className="h-5 w-5 text-primary" />
               <h2 className="font-display text-xl text-foreground">Top job matches</h2>
             </div>
-            <span className="text-xs text-muted-foreground">Updated every 6 hours</span>
+            <span className="text-xs text-muted-foreground">Updated every 90 minutes</span>
           </div>
           <ul className="divide-y divide-border">
             {jobMatches.map((j) => (
@@ -289,6 +368,52 @@ const ClientDashboard = () => {
           </ul>
         </div>
       )}
+
+      {/* Safety controls */}
+      <div className="rounded-3xl bg-card border border-border p-6 space-y-4">
+        <h2 className="font-display text-xl text-foreground">Controls</h2>
+        <p className="text-sm text-muted-foreground">Manage your auto-apply activity at any time.</p>
+        <div className="flex flex-wrap gap-3">
+          <Button
+            variant={isPaused ? "default" : "outline"}
+            onClick={togglePause}
+            disabled={controlsLoading}
+            className="rounded-full"
+          >
+            {isPaused ? <Play className="h-4 w-4 mr-1.5" /> : <Pause className="h-4 w-4 mr-1.5" />}
+            {isPaused ? "Resume auto-apply" : "Pause auto-apply"}
+          </Button>
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" className="rounded-full border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground" disabled={controlsLoading}>
+                <AlertOctagon className="h-4 w-4 mr-1.5" /> Emergency stop
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Emergency stop</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will immediately halt all auto-apply activity and alert your recruiter team. Use this if you notice unexpected submissions.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={emergencyStop} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  Stop everything
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
+          <HiredDialog onConfirm={markHired} disabled={controlsLoading} />
+        </div>
+        {isPaused && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
+            Auto-apply is paused. No new applications will be submitted until you resume.
+          </p>
+        )}
+      </div>
     </div>
   );
 };

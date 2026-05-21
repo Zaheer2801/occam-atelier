@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Search, Trash2, Download, ArrowUpRight } from "lucide-react";
+import { Plus, Search, Trash2, Download, ArrowUpRight, Ban, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,8 @@ import { StatusBadge } from "@/components/app/StatusBadge";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const statuses = ["applied", "screening", "interview", "offer", "rejected", "withdrawn"] as const;
 
@@ -54,6 +56,37 @@ const ClientApplications = () => {
     await supabase.from("job_applications").delete().eq("id", id);
     setApps((a) => a.filter((x) => x.id !== id));
     toast.success("Deleted");
+  };
+
+  const withdraw = async (id: string) => {
+    if (!user) return;
+    try {
+      const res = await fetch(`${API}/api/controls/withdraw`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ candidate_id: user.id, application_id: id }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setApps((a) => a.map((x) => (x.id === id ? { ...x, status: "withdrawn" } : x)));
+      toast.success("Application withdrawn");
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : "Withdraw failed");
+    }
+  };
+
+  const addDnc = async (company: string) => {
+    if (!user) return;
+    try {
+      const res = await fetch(`${API}/api/controls/dnc`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ candidate_id: user.id, company_name: company }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      toast.success(`${company} added to Do-Not-Apply list`);
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : "DNC failed");
+    }
   };
 
   const updateStatus = async (id: string, status: string) => {
@@ -178,7 +211,7 @@ const ClientApplications = () => {
                 <TableHead>Company</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Date</TableHead>
-                <TableHead className="w-12"></TableHead>
+                <TableHead className="w-32"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -198,7 +231,27 @@ const ClientApplications = () => {
                   </TableCell>
                   <TableCell className="text-muted-foreground">{new Date(a.applied_date).toLocaleDateString()}</TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => remove(a.id)} className="h-8 w-8 text-muted-foreground hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                    <div className="flex items-center gap-1">
+                      {a.status !== "withdrawn" && (
+                        <Button
+                          variant="ghost" size="icon"
+                          onClick={() => withdraw(a.id)}
+                          title="Withdraw application"
+                          className="h-8 w-8 text-muted-foreground hover:text-amber-600"
+                        >
+                          <XCircle className="h-4 w-4" />
+                        </Button>
+                      )}
+                      <Button
+                        variant="ghost" size="icon"
+                        onClick={() => addDnc(a.company)}
+                        title="Never apply to this company again"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                      >
+                        <Ban className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" onClick={() => remove(a.id)} title="Delete" className="h-8 w-8 text-muted-foreground hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

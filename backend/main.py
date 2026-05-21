@@ -63,11 +63,15 @@ from api.parse import router as parse_router
 from api.onboarding import router as onboarding_router
 from api.jobs import router as jobs_router
 from api.apply import router as apply_router
+from api.controls import router as controls_router
+from api.reviewer import router as reviewer_router
 app.include_router(resume_router)
 app.include_router(parse_router)
 app.include_router(onboarding_router)
 app.include_router(jobs_router)
 app.include_router(apply_router)
+app.include_router(controls_router)
+app.include_router(reviewer_router)
 
 
 @app.get("/health")

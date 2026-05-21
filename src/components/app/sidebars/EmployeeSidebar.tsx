@@ -1,4 +1,4 @@
-import { LayoutDashboard, Briefcase, BarChart3, Users, User } from "lucide-react";
+import { LayoutDashboard, Briefcase, BarChart3, Users, User, ClipboardList } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
@@ -10,6 +10,7 @@ const items = [
   { t: "Dashboard", url: "/app/employee/dashboard", icon: LayoutDashboard },
   { t: "Applications", url: "/app/employee/applications", icon: Briefcase },
   { t: "Clients", url: "/app/employee/clients", icon: Users },
+  { t: "Review Queue", url: "/app/reviewer/queue", icon: ClipboardList },
   { t: "Analytics", url: "/app/employee/analytics", icon: BarChart3 },
   { t: "Profile", url: "/app/employee/profile", icon: User },
 ];

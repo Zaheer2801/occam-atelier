@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, UserCheck, Briefcase, BarChart3, Settings, Inbox } from "lucide-react";
+import { LayoutDashboard, Users, UserCheck, Briefcase, BarChart3, Settings, Inbox, ClipboardList } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
@@ -12,6 +12,7 @@ const items = [
   { t: "Clients", url: "/app/manager/clients", icon: UserCheck },
   { t: "Pending", url: "/app/manager/clients/pending", icon: Inbox },
   { t: "Applications", url: "/app/manager/applications", icon: Briefcase },
+  { t: "Review Queue", url: "/app/reviewer/queue", icon: ClipboardList },
   { t: "Analytics", url: "/app/manager/analytics", icon: BarChart3 },
   { t: "Settings", url: "/app/manager/settings", icon: Settings },
 ];

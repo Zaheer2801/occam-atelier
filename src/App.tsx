@@ -47,6 +47,7 @@ import ManagerPendingClients from "./pages/app/manager/PendingClients";
 import ManagerApplications from "./pages/app/manager/Applications";
 import ManagerAnalytics from "./pages/app/manager/Analytics";
 import ManagerSettings from "./pages/app/manager/Settings";
+import ReviewerQueue from "./pages/app/reviewer/Queue";
 
 const queryClient = new QueryClient();
 
@@ -114,6 +115,7 @@ const App = () => (
                 <Route path="/app/employee/clients/:id" element={<EmployeeClientDetail />} />
                 <Route path="/app/employee/analytics" element={<EmployeeAnalytics />} />
                 <Route path="/app/employee/profile" element={<EmployeeProfile />} />
+                <Route path="/app/reviewer/queue" element={<ReviewerQueue />} />
               </Route>
             </Route>
 
@@ -128,6 +130,7 @@ const App = () => (
                 <Route path="/app/manager/applications" element={<ManagerApplications />} />
                 <Route path="/app/manager/analytics" element={<ManagerAnalytics />} />
                 <Route path="/app/manager/settings" element={<ManagerSettings />} />
+                <Route path="/app/reviewer/queue" element={<ReviewerQueue />} />
               </Route>
             </Route>
 
